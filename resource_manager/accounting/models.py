@@ -28,21 +28,23 @@ class OperationsAccount(models.Model):
     def __str__(self):
         return self.name
 
+
+class Votehead(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
     
 class OperationsTransaction(models.Model):
     account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
+    votehead = models.ForeignKey(Votehead, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateTimeField(auto_now_add=True)
     payment_type = models.CharField(max_length=10, choices=[('cash', 'Cash'), ('cheque', 'Cheque')])
 
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
-    
-class Votehead(models.Model):
-    name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
 
 
 
