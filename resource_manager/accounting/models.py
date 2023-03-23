@@ -37,5 +37,12 @@ class OperationsTransaction(models.Model):
 
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
+    
+class Votehead(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 
 
