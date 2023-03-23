@@ -20,7 +20,9 @@ def add_to_operations(request):
             payment_type = form.cleaned_data['payment_type']
             votehead = form.cleaned_data['votehead']
 
-            account.balance += float(amount)
+            account.cash_balance += float(amount) if payment_type == 'cash' else 0
+            account.bank_balance += float(amount) if payment_type != 'cash' else 0
+            account.total_balance = account.cash_balance + account.bank_balance
             account.save()
 
             transaction = OperationsTransaction.objects.create(
@@ -30,7 +32,13 @@ def add_to_operations(request):
                 payment_type=payment_type
             )
 
-            return HttpResponse(f"Added {amount} to {account.account_number} in {payment_type}")
+            context = {
+                'message': f"Added {amount} to {account.account_number} in {payment_type}"
+            }
+            return render(request, 'add_to_operations.html', context)
     else:
         form = OperationsTransactionForm()
-    return render(request, 'add_to_operations.html', {'form': form})
+    context = {
+        'form': form
+    }
+    return render(request, 'add_to_operations.html', context)
