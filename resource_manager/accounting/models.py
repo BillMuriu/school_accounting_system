@@ -43,7 +43,7 @@ class OperationsTransaction(models.Model):
     payment_type = models.CharField(max_length=10, choices=[('cash', 'Cash'), ('cheque', 'Cheque')])
 
     def __str__(self):
-        return f"{self.transaction_type} - {self.amount}"
+        return f"{self.votehead} - {self.amount}"
 
 
 
