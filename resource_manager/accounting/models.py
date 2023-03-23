@@ -32,7 +32,7 @@ class OperationsTransaction(models.Model):
 
 
 class OperationsReceipt(models.Model):
-    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
+    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE, default=None)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     receipt_type = models.CharField(max_length=10, choices=[('cash', 'Cash'), ('cheque', 'Cheque')])
     date_received = models.DateField()
