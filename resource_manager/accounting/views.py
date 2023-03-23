@@ -42,3 +42,31 @@ def add_to_operations(request):
         'form': form
     }
     return render(request, 'add_to_operations.html', context)
+
+#add receipt
+def add_receipt(request):
+    if request.method == 'POST':
+        form = OperationsReceiptForm(request.POST)
+        if form.is_valid():
+            account_number = form.cleaned_data['account_number']
+            amount = form.cleaned_data['amount']
+            payment_type = form.cleaned_data['payment_type']
+
+            try:
+                account = OperationsAccount.objects.get(account_number=account_number)
+            except OperationsAccount.DoesNotExist:
+                form.add_error('account_number', 'Invalid account number')
+                return render(request, 'add_receipt.html', {'form': form})
+
+            if payment_type == 'cash':
+                account.cash_balance += amount
+            elif payment_type == 'cheque':
+                account.bank_balance += amount
+
+            account.total_balance = account.cash_balance + account.bank_balance
+            account.save()
+
+            return redirect('receipt_added')
+    else:
+        form = OperationsReceiptForm()
+    return render(request, 'add_receipt.html', {'form': form})

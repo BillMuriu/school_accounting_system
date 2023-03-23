@@ -31,5 +31,14 @@ class OperationsTransaction(models.Model):
         return f"{self.votehead} - {self.amount}"
 
 
+class OperationsReceipt(models.Model):
+    account_number = models.CharField(max_length=20)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    receipt_type = models.CharField(max_length=10)
+    date_received = models.DateField()
+
+    def __str__(self):
+        return f"Receipt {self.id} for {self.account_number}"
+
 
 
