@@ -32,13 +32,14 @@ class OperationsTransaction(models.Model):
 
 
 class OperationsReceipt(models.Model):
-    account_number = models.CharField(max_length=20)
+    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    receipt_type = models.CharField(max_length=10)
+    receipt_type = models.CharField(max_length=10, choices=[('cash', 'Cash'), ('cheque', 'Cheque')])
     date_received = models.DateField()
 
     def __str__(self):
-        return f"Receipt {self.id} for {self.account_number}"
+        return f"Receipt {self.id} for {self.account.account_number}"
+
 
 
 

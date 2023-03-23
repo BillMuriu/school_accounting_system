@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(OperationsAccount)
 admin.site.register(OperationsTransaction)
 admin.site.register(Votehead)
+admin.site.register(OperationsReceipt)
