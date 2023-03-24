@@ -7,3 +7,5 @@ from .models import *
 admin.site.register(OperationsAccount)
 admin.site.register(VoteHead)
 admin.site.register(OperationsReceipt)
+admin.site.register(OperationsBudget)
+admin.site.register(VoteHeadReceipt)

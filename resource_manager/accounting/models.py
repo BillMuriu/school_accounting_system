@@ -52,7 +52,7 @@ class VoteHead(models.Model):
 
     name = models.CharField(max_length=100)
     account_type = models.CharField(max_length=20, choices=ACCOUNT_TYPES, default='other')
-    account_number = models.CharField(max_length=20, unique=True)
+    account_number = models.CharField(max_length=20, unique=True, default='')
     account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE, default=None)
     amount_budgeted = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
