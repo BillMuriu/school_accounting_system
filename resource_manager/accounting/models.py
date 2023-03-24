@@ -138,6 +138,11 @@ class PaymentVoucher(models.Model):
             self.cheque_number = None
         super().save(*args, **kwargs)
 
+        # Deduct the amount from the votehead
+        votehead = self.votehead
+        votehead.amount_budgeted -= self.amount
+        votehead.save()
+        
 class Cheque(models.Model):
     payee_name = models.CharField(max_length=100)
     cheque_number = models.CharField(max_length=20, unique=True)
