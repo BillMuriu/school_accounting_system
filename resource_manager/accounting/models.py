@@ -115,7 +115,21 @@ def update_votehead_receipt(sender, budget, **kwargs):
 
 
 
+class PaymentVoucher(models.Model):
+    PAYMENT_TYPES = (
+        ('cash', 'Cash'),
+        ('cheque', 'Cheque'),
+    )
 
+    date = models.DateField()
+    description = models.CharField(max_length=255)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_type = models.CharField(max_length=10, choices=PAYMENT_TYPES)
+    votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
+    approved_by = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.description
 
 
 
