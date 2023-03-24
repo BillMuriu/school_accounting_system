@@ -27,13 +27,32 @@ class OperationsBankAccount(models.Model):
         return self.name
 
 
-class OperationsChequeReceipt(models.Model):
-    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE, default=None)
+class OperationsCashReceipt(models.Model):
+    account = models.ForeignKey(OperationsCashAccount, on_delete=models.CASCADE, default=None)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_received = models.DateField()
 
     def __str__(self):
-        return f"Cheque receipt {self.id} for {self.account.account_number}"
+        return f"Receipt {self.id} for {self.account.account_number} (Cash)"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        account = self.account
+        amount = self.amount
+
+        account.cash_balance += amount
+        account.total_balance = account.cash_balance
+        account.save()
+
+
+class OperationsChequeReceipt(models.Model):
+    account = models.ForeignKey(OperationsBankAccount, on_delete=models.CASCADE, default=None)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date_received = models.DateField()
+
+    def __str__(self):
+        return f"Receipt {self.id} for {self.account.account_number} (Cheque)"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -42,8 +61,9 @@ class OperationsChequeReceipt(models.Model):
         amount = self.amount
 
         account.bank_balance += amount
-        account.total_balance = account.cash_balance + account.bank_balance
+        account.total_balance = account.bank_balance
         account.save()
+
 
 
 
@@ -58,15 +78,16 @@ class VoteHead(models.Model):
     name = models.CharField(max_length=100)
     account_type = models.CharField(max_length=20, choices=ACCOUNT_TYPES, default='other')
     account_number = models.CharField(max_length=20, unique=True, default='')
-    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE, default=None)
+    account = models.ForeignKey(OperationsBankAccount, on_delete=models.CASCADE, default=None)
     amount_budgeted = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
 
 
+
 class OperationsBudget(models.Model):
-    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
+    account = models.ForeignKey(OperationsBankAccount, on_delete=models.CASCADE)
     votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_budgeted = models.DateField()
