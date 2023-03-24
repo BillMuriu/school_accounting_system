@@ -46,13 +46,32 @@ class Votehead(models.Model):
     def __str__(self):
         return self.name
     
-class Budget(models.Model):
+class OperationsBudget(models.Model):
     account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
     votehead = models.ForeignKey(Votehead, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date_budgeted = models.DateField()
 
     def __str__(self):
-        return f"{self.account.name} - {self.votehead.name}: {self.amount}"
+        return f"{self.votehead} budgeted {self.amount} for {self.account.account_number}"
+
+    def save(self, *args, **kwargs):
+        # Update account balance
+        account = self.account
+        votehead_amount = self.amount
+        if account.total_balance < votehead_amount:
+            raise ValueError(f"Insufficient funds in account {account.account_number}")
+        if account.cash_balance >= votehead_amount:
+            account.cash_balance -= votehead_amount
+        else:
+            account.bank_balance -= votehead_amount - account.cash_balance
+            account.cash_balance = 0
+        account.total_balance = account.cash_balance + account.bank_balance
+        account.save()
+
+        # Save budget
+        super().save(*args, **kwargs)
+
 
 
 
