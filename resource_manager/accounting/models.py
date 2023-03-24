@@ -1,5 +1,9 @@
 from django.db import models
 from django.db.models import Sum
+from django.db.models.signals import post_save
+from django.dispatch import receiver, Signal
+
+
 
 # Create your models here.
 
@@ -55,7 +59,7 @@ class VoteHead(models.Model):
     def __str__(self):
         return self.name
 
-    
+
 class OperationsBudget(models.Model):
     account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
     votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
@@ -66,7 +70,7 @@ class OperationsBudget(models.Model):
         return f"{self.votehead} budgeted {self.amount} for {self.account.account_number}"
 
     def save(self, *args, **kwargs):
-    # Update account balance
+        # Update account balance
         account = self.account
         votehead_amount = self.amount
         if account.total_balance < votehead_amount:
@@ -81,7 +85,10 @@ class OperationsBudget(models.Model):
 
         # Save budget
         super().save(*args, **kwargs)
-    
+
+        # Send signal to update corresponding VoteHeadReceipt
+        budget_updated.send(sender=self.__class__, budget=self)
+
 class VoteHeadReceipt(models.Model):
     votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -89,6 +96,22 @@ class VoteHeadReceipt(models.Model):
 
     def __str__(self):
         return f"Receipt for {self.votehead} ({self.amount})"
+
+
+# Create signal for updating VoteHeadReceipt
+budget_updated = Signal()
+
+# Define receiver function for signal
+@receiver(budget_updated, sender=OperationsBudget)
+def update_votehead_receipt(sender, budget, **kwargs):
+    # Find corresponding VoteHeadReceipt and update amount
+    try:
+        receipt = VoteHeadReceipt.objects.get(votehead=budget.votehead)
+        receipt.amount += budget.amount
+        receipt.save()
+    except VoteHeadReceipt.DoesNotExist:
+        # Create new VoteHeadReceipt if one does not exist
+        receipt = VoteHeadReceipt.objects.create(votehead=budget.votehead, amount=budget.amount, date_received=budget.date_budgeted)
 
 
 
