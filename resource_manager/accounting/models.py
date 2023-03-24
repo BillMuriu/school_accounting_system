@@ -81,6 +81,15 @@ class OperationsBudget(models.Model):
 
         # Save budget
         super().save(*args, **kwargs)
+    
+class VoteHeadReceipt(models.Model):
+    votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date_received = models.DateField()
+
+    def __str__(self):
+        return f"Receipt for {self.votehead} ({self.amount})"
+
 
 
 
