@@ -139,6 +139,7 @@ def update_votehead_receipt(sender, budget, **kwargs):
         receipt = VoteHeadReceipt.objects.create(votehead=budget.votehead, amount=budget.amount, date_received=budget.date_budgeted)
 
 
+from django.conf import settings
 
 class PaymentVoucher(models.Model):
     PAYMENT_TYPES = (
@@ -161,12 +162,20 @@ class PaymentVoucher(models.Model):
     def save(self, *args, **kwargs):
         if self.payment_type == 'cash':
             self.cheque_number = None
+            # Deduct cash amount from OperationsCashAccount
+            votehead = self.votehead
+            bank_account = votehead.account
+            cash_account = OperationsCashAccount.objects.get(account_number)
+            if bank_account.account_number == cash_account.account_number:
+                cash_account.balance -= self.amount
+                cash_account.save()
+            self.cheque_number = None
         super().save(*args, **kwargs)
 
         # Deduct the amount from the votehead
-        votehead = self.votehead
         votehead.amount_budgeted -= self.amount
         votehead.save()
+
 
 class Cheque(models.Model):
     payee_name = models.CharField(max_length=100)
@@ -178,10 +187,6 @@ class Cheque(models.Model):
 
     def __str__(self):
         return f'Cheque {self.cheque_number} issued to {self.payee_name} on {self.date_issued}'
-
-
-
-
 
 
 
