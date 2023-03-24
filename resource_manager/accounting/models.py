@@ -13,24 +13,6 @@ class OperationsAccount(models.Model):
     def __str__(self):
         return self.name
 
-
-class Votehead(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
-    
-class OperationsTransaction(models.Model):
-    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
-    votehead = models.ForeignKey(Votehead, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    date = models.DateTimeField(auto_now_add=True)
-    payment_type = models.CharField(max_length=10, choices=[('cash', 'Cash'), ('cheque', 'Cheque')])
-
-    def __str__(self):
-        return f"{self.votehead} - {self.amount}"
-
-
 class OperationsReceipt(models.Model):
     account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE, default=None)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -38,7 +20,42 @@ class OperationsReceipt(models.Model):
     date_received = models.DateField()
 
     def __str__(self):
-        return f"Receipt {self.id} for {self.account.account_number}"
+        return f"Receipt {self.id} for {self.account.account_number} ({self.receipt_type})"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        account = self.account
+        amount = self.amount
+        receipt_type = self.receipt_type
+
+        if receipt_type == 'cash':
+            account.cash_balance += amount
+        elif receipt_type == 'cheque':
+            account.bank_balance += amount
+
+        account.total_balance = account.cash_balance + account.bank_balance
+        account.save()
+
+
+
+
+class Votehead(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+class Budget(models.Model):
+    account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE)
+    votehead = models.ForeignKey(Votehead, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.account.name} - {self.votehead.name}: {self.amount}"
+
+
+
 
 
 
