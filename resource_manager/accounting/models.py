@@ -122,14 +122,22 @@ class PaymentVoucher(models.Model):
     )
 
     date = models.DateField()
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=200)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_type = models.CharField(max_length=10, choices=PAYMENT_TYPES)
+    payment_type = models.CharField(max_length=20, choices=PAYMENT_TYPES, default='cash')
     votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
     approved_by = models.CharField(max_length=100)
+    voucher_number = models.CharField(max_length=20, unique=True)
+    cheque_number = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return self.description
+        return f"{self.description} ({self.amount})"
+
+    def save(self, *args, **kwargs):
+        if self.payment_type == 'cash':
+            self.cheque_number = None
+        super().save(*args, **kwargs)
+
 
 
 
