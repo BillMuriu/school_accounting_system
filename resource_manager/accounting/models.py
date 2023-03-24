@@ -7,15 +7,25 @@ from django.dispatch import receiver, Signal
 
 # Create your models here.
 
-class OperationsAccount(models.Model):
+class OperationsCashAccount(models.Model):
     account_number = models.CharField(max_length=20, unique=True)
     name = models.CharField(max_length=50)
     cash_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class OperationsBankAccount(models.Model):
+    account_number = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=50)
     bank_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
+
 
 class OperationsChequeReceipt(models.Model):
     account = models.ForeignKey(OperationsAccount, on_delete=models.CASCADE, default=None)
