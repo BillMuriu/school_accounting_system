@@ -101,12 +101,10 @@ class OperationsBudget(models.Model):
         votehead_amount = self.amount
         if account.total_balance < votehead_amount:
             raise ValueError(f"Insufficient funds in account {account.account_number}")
-        if account.bank_balance >= votehead_amount:
-            account.bank_balance -= votehead_amount
-        else:
-            account.cash_balance -= votehead_amount - account.bank_balance
-            account.bank_balance = 0
-        account.total_balance = account.cash_balance + account.bank_balance
+        if account.bank_balance < votehead_amount:
+            raise ValueError(f"Insufficient bank funds in account {account.account_number}")
+        account.bank_balance -= votehead_amount
+        account.total_balance = account.bank_balance
         account.save()
 
         # Save budget
@@ -114,6 +112,7 @@ class OperationsBudget(models.Model):
 
         # Send signal to update corresponding VoteHeadReceipt
         budget_updated.send(sender=self.__class__, budget=self)
+
 
 class VoteHeadReceipt(models.Model):
     votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
