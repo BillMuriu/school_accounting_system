@@ -165,7 +165,7 @@ class PaymentVoucher(models.Model):
             # Deduct cash amount from OperationsCashAccount
             votehead = self.votehead
             bank_account = votehead.account
-            cash_account = OperationsCashAccount.objects.get(account_number)
+            cash_account = OperationsCashAccount.objects.first()
             if bank_account.account_number == cash_account.account_number:
                 cash_account.balance -= self.amount
                 cash_account.save()
