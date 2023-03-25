@@ -23,7 +23,7 @@
     </tr>
     <!-- Add rows for receipts -->
     {% for receipt in receipts %}
-        {% if receipt.amount and repairs_maintenance_improvement.amount_budgeted and personal_emolument.amount_budgeted %}
+        {% if receipt.amount is not None %}
             <tr>
                 <td>{{ receipt.date_received }}</td>
                 <td></td>
@@ -41,4 +41,5 @@
             </tr>
         {% endif %}
     {% endfor %}
+
 </table>
