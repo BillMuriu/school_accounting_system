@@ -81,6 +81,8 @@ class VoteHead(models.Model):
     account = models.ForeignKey(OperationsBankAccount, on_delete=models.CASCADE, default=None)
     amount_budgeted = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     amount_spent = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
 
     def __str__(self):
         return self.name
@@ -100,6 +102,7 @@ class OperationsBudget(models.Model):
     def save(self, *args, **kwargs):
         # Update account balance
         account = self.account
+        votehead = self.votehead
         votehead_amount = self.amount
         if account.total_balance < votehead_amount:
             raise ValueError(f"Insufficient funds in account {account.account_number}")
@@ -109,11 +112,16 @@ class OperationsBudget(models.Model):
         account.total_balance = account.bank_balance
         account.save()
 
+        # Update votehead amount_budgeted
+        votehead.amount_budgeted += votehead_amount
+        votehead.save()
+
         # Save budget
         super().save(*args, **kwargs)
 
         # Send signal to update corresponding VoteHeadReceipt
         budget_updated.send(sender=self.__class__, budget=self)
+
 
 
 class VoteHeadReceipt(models.Model):
@@ -176,7 +184,7 @@ class PaymentVoucher(models.Model):
         super().save(*args, **kwargs)
 
         # Deduct the amount from the votehead
-        votehead.amount_budgeted -= self.amount
+        votehead.balance -= self.amount
 
         #Add the amount to the votehead
         votehead.amount_spent = self.amount
