@@ -80,9 +80,11 @@ class VoteHead(models.Model):
     account_number = models.CharField(max_length=20, unique=True, default='')
     account = models.ForeignKey(OperationsBankAccount, on_delete=models.CASCADE, default=None)
     amount_budgeted = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    amount_spent = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
+
 
 
 
