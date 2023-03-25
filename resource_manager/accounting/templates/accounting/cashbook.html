@@ -19,4 +19,13 @@
         <th>P. Emolument</th>
     </tr>
     <!-- Add rows for receipts -->
+    {% for receipt in receipts %}
+        <tr>
+            <td>{{ receipt.date_received }}</td>
+            <td>{{ operations_cash_account.balance }}</td>
+            <td>{{ receipt.amount }}</td>
+            <td>{{ repairs_maintenance_improvement.amount_budgeted }}</td>
+            <td>{{ personal_emolument.amount_budgeted }}</td>
+        </tr>
+    {% endfor %}
 </table>

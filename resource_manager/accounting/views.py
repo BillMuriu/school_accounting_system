@@ -27,6 +27,7 @@ def home(request):
         'bank': latest_receipt.amount,
         'rmi_budgeted_amount': rmi_budgeted_amount,
         'pe_budgeted_amount': pe_budgeted_amount,
+        'receipts': OperationsChequeReceipt.objects.all()
     }
 
     return render(request, 'accounting/cashbook.html', context)
