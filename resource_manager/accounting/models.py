@@ -167,7 +167,8 @@ class PaymentVoucher(models.Model):
             bank_account = votehead.account
             cash_account = OperationsCashAccount.objects.first()
             if bank_account.account_number == cash_account.account_number:
-                cash_account.balance -= self.amount
+                cash_account.cash_balance -= self.amount
+                cash_account.total_balance = cash_account.cash_balance
                 cash_account.save()
             self.cheque_number = None
         super().save(*args, **kwargs)
@@ -175,6 +176,7 @@ class PaymentVoucher(models.Model):
         # Deduct the amount from the votehead
         votehead.amount_budgeted -= self.amount
         votehead.save()
+
 
 
 class Cheque(models.Model):
