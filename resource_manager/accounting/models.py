@@ -103,6 +103,7 @@ class OperationsBudget(models.Model):
     def save(self, *args, **kwargs):
         # Update account balance
         account = self.account
+        votehead = self.votehead
         votehead_amount = self.amount
         if account.total_balance < votehead_amount:
             raise ValueError(f"Insufficient funds in account {account.account_number}")
@@ -110,12 +111,10 @@ class OperationsBudget(models.Model):
             raise ValueError(f"Insufficient bank funds in account {account.account_number}")
         account.bank_balance -= votehead_amount
         account.total_balance = account.bank_balance
-        account.month_end_balance = account.bank_balance
         account.save()
 
         # Update votehead amount_budgeted
-        votehead = self.votehead
-        votehead.amount_budgeted += self.amount
+        votehead.amount_budgeted += votehead_amount
         votehead.save()
 
         # Save budget
