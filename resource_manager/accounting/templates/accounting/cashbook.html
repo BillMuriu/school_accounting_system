@@ -23,12 +23,22 @@
     </tr>
     <!-- Add rows for receipts -->
     {% for receipt in receipts %}
-        <tr>
-            <td>{{ receipt.date_received }}</td>
-            <td>{{ latest_cash_receipt.amount }}</td>
-            <td>{{ receipt.amount }}</td>
-            <td>{{ repairs_maintenance_improvement.amount_budgeted }}</td>
-            <td>{{ personal_emolument.amount_budgeted }}</td>
-        </tr>
+        {% if receipt.amount and repairs_maintenance_improvement.amount_budgeted and personal_emolument.amount_budgeted %}
+            <tr>
+                <td>{{ receipt.date_received }}</td>
+                <td></td>
+                <td>{{ receipt.amount }}</td>
+                <td>{{ repairs_maintenance_improvement.amount_budgeted }}</td>
+                <td>{{ personal_emolument.amount_budgeted }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>{{ receipt.date_received }}</td>
+                <td>{{ latest_cash_receipt.amount }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
     {% endfor %}
 </table>
