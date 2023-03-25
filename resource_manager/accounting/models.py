@@ -172,7 +172,7 @@ class PaymentVoucher(models.Model):
 
     def save(self, *args, **kwargs):
         # Set a default value for votehead
-        votehead = self.votehead or self.votehead.account.votehead_set.first()
+        votehead = self.votehead
 
         if self.payment_type == 'cash':
             self.cheque_number = None
