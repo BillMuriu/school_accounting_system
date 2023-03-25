@@ -22,6 +22,7 @@ class OperationsBankAccount(models.Model):
     name = models.CharField(max_length=50)
     bank_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     total_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    month_end_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name
@@ -102,7 +103,6 @@ class OperationsBudget(models.Model):
     def save(self, *args, **kwargs):
         # Update account balance
         account = self.account
-        votehead = self.votehead
         votehead_amount = self.amount
         if account.total_balance < votehead_amount:
             raise ValueError(f"Insufficient funds in account {account.account_number}")
@@ -110,10 +110,12 @@ class OperationsBudget(models.Model):
             raise ValueError(f"Insufficient bank funds in account {account.account_number}")
         account.bank_balance -= votehead_amount
         account.total_balance = account.bank_balance
+        account.month_end_balance = account.bank_balance
         account.save()
 
         # Update votehead amount_budgeted
-        votehead.amount_budgeted += votehead_amount
+        votehead = self.votehead
+        votehead.amount_budgeted += self.amount
         votehead.save()
 
         # Save budget
