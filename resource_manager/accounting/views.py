@@ -12,6 +12,12 @@ def home(request):
     # Get the latest cash receipt
     latest_cash_receipt = OperationsCashReceipt.objects.latest('date_received')
 
+     # Get all the votehead objects
+    voteheads = VoteHead.objects.all()
+
+    # Create a list of the votehead names
+    votehead_names = [votehead.name for votehead in voteheads]
+
     # Get the RMI votehead budgeted amount
     rmi_votehead = VoteHead.objects.get(name='Repairs Maintenance and Improvement')
     rmi_budgeted_amount = rmi_votehead.amount_budgeted
@@ -27,6 +33,8 @@ def home(request):
     context = {
     'latest_receipt': latest_receipt,
     'latest_cash_receipt': latest_cash_receipt,
+    'voteheads': voteheads,
+    'votehead_names': votehead_names,
     'repairs_maintenance_improvement': rmi_votehead,
     'personal_emolument': pe_votehead,
     'bank': latest_receipt.amount,

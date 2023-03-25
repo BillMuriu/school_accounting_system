@@ -18,8 +18,10 @@
         <th>Receipt No.</th>
         <th>Cash</th>
         <th>Bank</th>
-        <th>RMI</th>
-        <th>P. Emolument</th>
+        {% for votehead in voteheads %}
+            <th>{{ votehead.name }}</th>
+        {% endfor %}
+        </tr>
     </tr>
     <!-- Add rows for receipts -->
         {% for receipt in checkreceipts %}
@@ -27,8 +29,9 @@
                 <td>{{ receipt.date_received }}</td>
                 <td></td>
                 <td>{{ receipt.amount }}</td>
-                <td>{{ repairs_maintenance_improvement.amount_budgeted }}</td>
-                <td>{{ personal_emolument.amount_budgeted }}</td>
+                {% for votehead in voteheads %}
+                    <td>{{ votehead.amount_budgeted }}</td>
+                {% endfor %}
             </tr>
         {% endfor %}
         {% for receipt in cashreceipts %}
