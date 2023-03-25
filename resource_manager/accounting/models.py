@@ -177,6 +177,9 @@ class PaymentVoucher(models.Model):
 
         # Deduct the amount from the votehead
         votehead.amount_budgeted -= self.amount
+
+        #Add the amount to the votehead
+        votehead.amount_spent = self.amount
         votehead.save()
 
 
