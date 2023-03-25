@@ -189,11 +189,9 @@ class PaymentVoucher(models.Model):
 
         super().save(*args, **kwargs)
 
-        # Deduct the amount from the votehead
-        votehead.balance -= self.amount
-
         # Add the amount to the votehead
         votehead.amount_spent += self.amount
+        votehead.balance = votehead.amount_budgeted - votehead.amount_spent
         votehead.save()
 
 
