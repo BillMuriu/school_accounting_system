@@ -23,7 +23,7 @@ def home(request):
     # Get the RMI and PE votehead objects
     rmi_votehead = VoteHead.objects.get(name='Repairs Maintenance and Improvement')
     pe_votehead = VoteHead.objects.get(name='Personal Emolument')
-    
+
     context = {
     'latest_receipt': latest_receipt,
     'latest_cash_receipt': latest_cash_receipt,
@@ -32,7 +32,8 @@ def home(request):
     'bank': latest_receipt.amount,
     'rmi_budgeted_amount': rmi_budgeted_amount,
     'pe_budgeted_amount': pe_budgeted_amount,
-    'receipts': OperationsChequeReceipt.objects.all()
+    'checkreceipts': OperationsChequeReceipt.objects.all(),
+    'cashreceipts': OperationsCashReceipt.objects.all()
 }
 
     return render(request, 'accounting/cashbook.html', context)

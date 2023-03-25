@@ -22,8 +22,7 @@
         <th>P. Emolument</th>
     </tr>
     <!-- Add rows for receipts -->
-    {% for receipt in receipts %}
-        {% if receipt.amount is not None %}
+        {% for receipt in checkreceipts %}
             <tr>
                 <td>{{ receipt.date_received }}</td>
                 <td></td>
@@ -31,7 +30,8 @@
                 <td>{{ repairs_maintenance_improvement.amount_budgeted }}</td>
                 <td>{{ personal_emolument.amount_budgeted }}</td>
             </tr>
-        {% else %}
+        {% endfor %}
+        {% for receipt in cashreceipts %}
             <tr>
                 <td>{{ receipt.date_received }}</td>
                 <td>{{ latest_cash_receipt.amount }}</td>
@@ -39,7 +39,5 @@
                 <td></td>
                 <td></td>
             </tr>
-        {% endif %}
-    {% endfor %}
-
+        {% endfor %}
 </table>
