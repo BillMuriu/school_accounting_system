@@ -30,6 +30,7 @@ class OperationsBankAccount(models.Model):
 
 class OperationsCashReceipt(models.Model):
     account = models.ForeignKey(OperationsCashAccount, on_delete=models.CASCADE, default=None)
+    received_from = models.CharField(max_length=100, default='')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_received = models.DateField()
 
@@ -49,6 +50,7 @@ class OperationsCashReceipt(models.Model):
 
 class OperationsChequeReceipt(models.Model):
     account = models.ForeignKey(OperationsBankAccount, on_delete=models.CASCADE, default=None)
+    received_from = models.CharField(max_length=100, default='')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_received = models.DateField()
 
