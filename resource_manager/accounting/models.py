@@ -185,7 +185,7 @@ class PaymentVoucher(models.Model):
                 cash_account.save()
             self.cheque_number = None
         else:
-            self.cheque_number = self.voucher_number
+            self.cheque_number = self.cheque_number
 
         super().save(*args, **kwargs)
 

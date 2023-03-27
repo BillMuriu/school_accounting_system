@@ -71,13 +71,17 @@
         <tr>
             <td>{{ payment.date }}</td>
             <td>{{ payment.to_whom_paid }}</td>
-            <td>{{ payment.vr_number }}</td>
+            <td>{{ payment.voucher_number }}</td>
             <td></td>
             <td>{{ payment.amount }}</td>
             <td></td>
             <td>{{ payment.total_amount }}</td>
             {% for votehead in voteheads %}
-                <td>{{ votehead.amount_budgeted }}</td>
+                {% if votehead == payment.votehead %}
+                    <td>{{ payment.amount }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
             {% endfor %}
         </tr>
     {% endif %}
@@ -85,13 +89,17 @@
         <tr>
             <td>{{ payment.date }}</td>
             <td>{{ payment.to_whom_paid }}</td>
-            <td>{{ payment.vr_number }}</td>
+            <td>{{ payment.voucher_number }}</td>
             <td>{{ payment.cheque_number }}</td>
-            <td>{{ payment.cash_amount }}</td>
+            <td></td>
             <td>{{ payment.amount }}</td>
             <td>{{ payment.total_amount }}</td>
             {% for votehead in voteheads %}
-                <td>{{ payment.amount }}</td>
+                {% if votehead == payment.votehead %}
+                    <td>{{ payment.amount }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
             {% endfor %}
         </tr>
     {% endif %}
