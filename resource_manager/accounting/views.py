@@ -26,6 +26,20 @@ def home(request):
     return render(request, 'accounting/cashbook.html', context)
 
 
+def payments(request):
+    # Get all the payment vouchers
+    payment_vouchers = PaymentVoucher.objects.all()
+
+    # Get all the votehead objects
+    voteheads = VoteHead.objects.all()
+
+    context = {
+        'payment_vouchers': payment_vouchers,
+        'voteheads': voteheads
+    }
+
+    return render(request, 'accounting/payments.html', context)
+
 
 
 
