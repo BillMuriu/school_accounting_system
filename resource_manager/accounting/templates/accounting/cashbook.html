@@ -67,6 +67,7 @@
         {% endfor %}
     </tr>
     {% for payment in payment_vouchers %}
+    {% if payment.payment_type == 'Cash' %}
         <tr>
             <td>{{ payment.date }}</td>
             <td>{{ payment.to_whom_paid }}</td>
@@ -79,5 +80,7 @@
                 <td>{{ votehead.amount_budgeted }}</td>
             {% endfor %}
         </tr>
-    {% endfor %}
+    {% endif %}
+{% endfor %}
+
 </table>

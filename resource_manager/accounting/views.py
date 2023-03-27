@@ -14,7 +14,9 @@ def home(request):
 
     # Get all the votehead objects
     voteheads = VoteHead.objects.all()
-    payment_vouchers = PaymentVoucher.objects.all()
+
+    # Get all the payment vouchers with cash as the payment type
+    payment_vouchers = PaymentVoucher.objects.filter(payment_type='Cash')
 
     context = {
         'latest_receipt': latest_receipt,
@@ -26,6 +28,7 @@ def home(request):
     }
 
     return render(request, 'accounting/cashbook.html', context)
+
 
 
 
