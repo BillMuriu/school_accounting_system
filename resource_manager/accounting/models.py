@@ -68,6 +68,13 @@ class OperationsChequeReceipt(models.Model):
         account.save()
 
 
+class PettyCash(models.Model):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField()
+    payee = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"Petty Cash - {self.amount} ({self.date}) - Payee: {self.payee}"
 
 
 
