@@ -14,31 +14,19 @@ def home(request):
 
     # Get all the votehead objects
     voteheads = VoteHead.objects.all()
+    payment_vouchers = PaymentVoucher.objects.all()
 
     context = {
         'latest_receipt': latest_receipt,
         'latest_cash_receipt': latest_cash_receipt,
         'voteheads': voteheads,
         'checkreceipts': OperationsChequeReceipt.objects.all(),
+        'payment_vouchers': payment_vouchers,
         'cashreceipts': OperationsCashReceipt.objects.all()
     }
 
     return render(request, 'accounting/cashbook.html', context)
 
-
-def payments(request):
-    # Get all the payment vouchers
-    payment_vouchers = PaymentVoucher.objects.all()
-
-    # Get all the votehead objects
-    voteheads = VoteHead.objects.all()
-
-    context = {
-        'payment_vouchers': payment_vouchers,
-        'voteheads': voteheads
-    }
-
-    return render(request, 'accounting/payments.html', context)
 
 
 

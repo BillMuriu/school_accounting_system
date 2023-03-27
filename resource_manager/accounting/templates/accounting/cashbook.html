@@ -66,7 +66,7 @@
             <th>{{ votehead.name }}</th>
         {% endfor %}
     </tr>
-    {% for payment in payments %}
+    {% for payment in payment_vouchers %}
         <tr>
             <td>{{ payment.date }}</td>
             <td>{{ payment.to_whom_paid }}</td>
