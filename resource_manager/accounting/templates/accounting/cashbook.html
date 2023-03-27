@@ -9,26 +9,30 @@
         padding: 10px;
     }
     h3 {
-        color: brown;
+        color: white;
+        background-color: green;
     }
 </style>
 
 <table>
     <tr>
         <th>Receipt No.</th>
+        <th>Carried Forward</th>
         <th>Cash</th>
         <th>Bank</th>
+        <th>Total</th>
         {% for votehead in voteheads %}
             <th>{{ votehead.name }}</th>
         {% endfor %}
         </tr>
     </tr>
-    <!-- Add rows for receipts -->
         {% for receipt in checkreceipts %}
             <tr>
                 <td>{{ receipt.date_received }}</td>
                 <td></td>
+                <td></td>
                 <td>{{ receipt.amount }}</td>
+                <td></td>
                 {% for votehead in voteheads %}
                     <td>{{ votehead.amount_budgeted }}</td>
                 {% endfor %}
@@ -37,10 +41,43 @@
         {% for receipt in cashreceipts %}
             <tr>
                 <td>{{ receipt.date_received }}</td>
+                <td></td>
                 <td>{{ latest_cash_receipt.amount }}</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
         {% endfor %}
+</table>
+
+
+<h3>Payments</h3>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>To Whom Paid</th>
+        <th>VR</th>
+        <th>Cheque No.</th>
+        <th>Cash</th>
+        <th>Bank</th>
+        <th>Total</th>
+        {% for votehead in voteheads %}
+            <th>{{ votehead.name }}</th>
+        {% endfor %}
+    </tr>
+    {% for payment in payments %}
+        <tr>
+            <td>{{ payment.date }}</td>
+            <td>{{ payment.to_whom_paid }}</td>
+            <td>{{ payment.vr_number }}</td>
+            <td>{{ payment.cheque_number }}</td>
+            <td>{{ payment.cash_amount }}</td>
+            <td>{{ payment.bank_amount }}</td>
+            <td>{{ payment.total_amount }}</td>
+            {% for votehead in voteheads %}
+                <td>{{ votehead.amount_budgeted }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
 </table>
