@@ -67,17 +67,31 @@
         {% endfor %}
     </tr>
     {% for payment in payment_vouchers %}
-    {% if payment.payment_type == 'Cash' %}
+    {% if payment.payment_type == 'cash' %}
+        <tr>
+            <td>{{ payment.date }}</td>
+            <td>{{ payment.to_whom_paid }}</td>
+            <td>{{ payment.vr_number }}</td>
+            <td></td>
+            <td>{{ payment.amount }}</td>
+            <td></td>
+            <td>{{ payment.total_amount }}</td>
+            {% for votehead in voteheads %}
+                <td>{{ votehead.amount_budgeted }}</td>
+            {% endfor %}
+        </tr>
+    {% endif %}
+    {% if payment.payment_type == 'cheque' %}
         <tr>
             <td>{{ payment.date }}</td>
             <td>{{ payment.to_whom_paid }}</td>
             <td>{{ payment.vr_number }}</td>
             <td>{{ payment.cheque_number }}</td>
             <td>{{ payment.cash_amount }}</td>
-            <td>{{ payment.bank_amount }}</td>
+            <td>{{ payment.amount }}</td>
             <td>{{ payment.total_amount }}</td>
             {% for votehead in voteheads %}
-                <td>{{ votehead.amount_budgeted }}</td>
+                <td>{{ payment.amount }}</td>
             {% endfor %}
         </tr>
     {% endif %}
