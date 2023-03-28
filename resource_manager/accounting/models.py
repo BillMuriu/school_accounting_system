@@ -84,7 +84,8 @@ class PettyCash(models.Model):
         # update or create OperationsCashReceipt
         operations_cash_receipt, _ = OperationsCashReceipt.objects.get_or_create(account=self.operations_account)
         operations_cash_receipt.received_from = self.payee_name
-        operations_cash_receipt.amount += self.amount
+        print(f"self.amount: {self.amount}")
+        operations_cash_receipt.amount = self.amount
         operations_cash_receipt.date_received = self.date_issued
         operations_cash_receipt.save()
 
