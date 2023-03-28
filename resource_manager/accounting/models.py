@@ -95,6 +95,12 @@ class PettyCash(models.Model):
         operations_account.total_balance = operations_account.cash_balance
         operations_account.save()
 
+         # Deduct amount from the OperationsBankAccount
+        bank_account = OperationsBankAccount.objects.first()
+        bank_account.bank_balance -= self.amount
+        bank_account.total_balance = bank_account.bank_balance
+        bank_account.save()
+
 
 
 
