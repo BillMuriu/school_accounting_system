@@ -268,7 +268,14 @@ class Cheque(models.Model):
             cheque_account.total_balance = cheque_account.bank_balance
             cheque_account.save()
 
+            # Update the amount spent for the cheque's votehead if available
+            if self.votehead:
+                self.votehead.amount_spent += self.amount
+                self.votehead.balance = self.votehead.amount_budgeted - self.votehead.amount_spent
+                self.votehead.save()
+
         super().save(*args, **kwargs)
+
 
 
 
