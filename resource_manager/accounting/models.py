@@ -73,35 +73,20 @@ class PettyCash(models.Model):
     cheque_number = models.CharField(max_length=20, unique=True, default='')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_issued = models.DateField()
-    operations_receipt = models.ForeignKey(OperationsCashReceipt, on_delete=models.CASCADE, default=None)
-
+    
     def __str__(self):
         return f"Petty Cash - {self.amount} ({self.date_issued}) - Payee: {self.payee_name}"
-
+    
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-
-        # update or create OperationsCashReceipt
-        operations_receipt, created = OperationsCashReceipt.objects.get_or_create(account=self.operations_account)
+        
+        # create new OperationsCashReceipt instance
+        operations_receipt = OperationsCashReceipt.objects.create(account=None)
         operations_receipt.received_from = self.payee_name
         operations_receipt.amount = self.amount
         operations_receipt.date_received = self.date_issued
         operations_receipt.save()
 
-        if created:
-            # if the OperationsCashReceipt was just created, update the related OperationsCashAccount
-            operations_account = self.operations_receipt.account
-            operations_account.cash_balance += self.amount
-            operations_account.total_balance = operations_account.cash_balance
-            operations_account.save()
-        else:
-            # if the OperationsCashReceipt already existed, update the related OperationsCashAccount balance
-            operations_account = self.operations_receipt.account
-            operations_account.cash_balance += self.amount - self._original_amount
-            operations_account.total_balance = operations_account.cash_balance
-            operations_account.save()
-
-        self._original_amount = self.amount
 
 
 
