@@ -183,8 +183,6 @@ def update_votehead_receipt(sender, budget, **kwargs):
         receipt = VoteHeadReceipt.objects.create(votehead=budget.votehead, amount=budget.amount, date_received=budget.date_budgeted)
 
 
-from django.conf import settings
-
 class PaymentVoucher(models.Model):
     PAYMENT_TYPES = (
         ('cash', 'Cash'),
@@ -248,12 +246,28 @@ class Cheque(models.Model):
         return f'Cheque {self.cheque_number} issued to {self.payee_name} on {self.date_issued}'
 
     def save(self, *args, **kwargs):
-        # Automatically link the cheque to a payment voucher with the same cheque number
-        payment_voucher = PaymentVoucher.objects.filter(cheque_number=self.cheque_number).first()
-        if payment_voucher:
-            self.votehead = payment_voucher.votehead
-            self.amount = payment_voucher.amount
-            self.payee_name = payment_voucher.payee_name
+        # Check if there's a payment voucher with the same cheque number
+        try:
+            voucher = PaymentVoucher.objects.get(cheque_number=self.cheque_number)
+        except PaymentVoucher.DoesNotExist:
+            voucher = None
+
+        if voucher:
+            # Link the voucher to the cheque
+            self.votehead = voucher.votehead
+
+            # Deduct cheque amount from the votehead account
+            votehead = voucher.votehead
+            votehead.amount_spent += self.amount
+            votehead.balance = votehead.amount_budgeted - votehead.amount_spent
+            votehead.save()
+        else:
+            # Deduct cheque amount from the OperationsChequeAccount
+            cheque_account = OperationsBankAccount.objects.first()
+            cheque_account.bank_balance -= self.amount
+            cheque_account.total_balance = cheque_account.bank_balance
+            cheque_account.save()
+
         super().save(*args, **kwargs)
 
 
