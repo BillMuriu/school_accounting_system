@@ -31,7 +31,7 @@ class OperationsBankAccount(models.Model):
 class OperationsCashReceipt(models.Model):
     account = models.ForeignKey(OperationsCashAccount, on_delete=models.CASCADE, default=None)
     received_from = models.CharField(max_length=100, default='')
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     date_received = models.DateField()
 
     def __str__(self):
@@ -82,12 +82,12 @@ class PettyCash(models.Model):
         super().save(*args, **kwargs)
 
         # update or create OperationsCashReceipt
-        operations_cash_receipt, _ = OperationsCashReceipt.objects.get_or_create(account=self.operations_account)
+        operations_cash_receipt, _ = self.operations_account.operationscashreceipt_set.get_or_create()
         operations_cash_receipt.received_from = self.payee_name
-        print(f"self.amount: {self.amount}")
         operations_cash_receipt.amount = self.amount
         operations_cash_receipt.date_received = self.date_issued
         operations_cash_receipt.save()
+
 
 
 
