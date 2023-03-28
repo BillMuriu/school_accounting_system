@@ -74,6 +74,7 @@ class PettyCash(models.Model):
     payee_name = models.CharField(max_length=100, default='')
     cheque_number = models.CharField(max_length=20, unique=True, default='')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    operations_receipt = models.OneToOneField(OperationsCashReceipt, on_delete=models.CASCADE, null=True, blank=True)
     date_issued = models.DateField()
 
     def __str__(self):
