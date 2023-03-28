@@ -7,10 +7,13 @@ from .forms import *
 
 def home(request):
     # Get the latest cheque receipt
-    latest_receipt = OperationsChequeReceipt.objects.latest('date_received')
+    try:
+        latest_receipt = OperationsChequeReceipt.objects.latest('date_received')
+    except OperationsChequeReceipt.DoesNotExist:
+        latest_receipt = None
 
-    # Get the latest cash receipt
-    latest_cash_receipt = OperationsCashReceipt.objects.latest('date_received')
+    # Get all the cash receipts
+    cash_receipts = OperationsCashReceipt.objects.all()
 
     # Get all the votehead objects
     voteheads = VoteHead.objects.all()
@@ -20,14 +23,15 @@ def home(request):
 
     context = {
         'latest_receipt': latest_receipt,
-        'latest_cash_receipt': latest_cash_receipt,
         'voteheads': voteheads,
         'checkreceipts': OperationsChequeReceipt.objects.all(),
         'payment_vouchers': payment_vouchers,
-        'cashreceipts': OperationsCashReceipt.objects.all()
+        'cashreceipts': cash_receipts,
     }
 
     return render(request, 'accounting/cashbook.html', context)
+
+
 
 
 

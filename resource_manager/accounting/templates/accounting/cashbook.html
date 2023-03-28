@@ -42,13 +42,18 @@
             <tr>
                 <td>{{ receipt.date_received }}</td>
                 <td></td>
-                <td>{{ latest_cash_receipt.amount }}</td>
+                <td>{{ receipt.amount }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
             </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">No cash receipts found.</td>
+            </tr>
         {% endfor %}
+
 </table>
 
 
