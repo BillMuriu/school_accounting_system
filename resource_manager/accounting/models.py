@@ -74,7 +74,6 @@ class PettyCash(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_issued = models.DateField()
     operations_account = models.ForeignKey(OperationsCashAccount, on_delete=models.CASCADE, default=None)
-    operations_receipt = models.ForeignKey(OperationsCashReceipt, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return f"Petty Cash - {self.amount} ({self.date_issued}) - Payee: {self.payee_name}"
