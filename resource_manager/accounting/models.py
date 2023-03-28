@@ -74,30 +74,23 @@ class PettyCash(models.Model):
     payee_name = models.CharField(max_length=100, default='')
     cheque_number = models.CharField(max_length=20, unique=True, default='')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    operations_receipt = models.OneToOneField(OperationsCashReceipt, on_delete=models.CASCADE, null=True, blank=True)
     date_issued = models.DateField()
+    operations_account = models.ForeignKey(OperationsCashAccount, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return f"Petty Cash - {self.amount} ({self.date_issued}) - Payee: {self.payee_name}"
 
     def save(self, *args, **kwargs):
-        created = not self.pk  # Check if the object is being created or updated
         super().save(*args, **kwargs)
-        if created:
-            # Create a corresponding OperationsCashReceipt object
-            receipt = OperationsCashReceipt.objects.create(
-                account=self.account,
-                received_from=self.payee_name,
-                amount=self.amount,
-                date_received=self.date_issued
-            )
-            self.operations_receipt = receipt
-        else:
-            # Update the corresponding OperationsCashReceipt object
-            self.operations_receipt.received_from = self.payee_name
-            self.operations_receipt.amount = self.amount
-            self.operations_receipt.date_received = self.date_issued
-            self.operations_receipt.save()
+
+        # update OperationsCashReceipt
+        operations_cash_receipt = OperationsCashReceipt.objects.filter(account=self.operations_account).first()
+        if operations_cash_receipt:
+            operations_cash_receipt.received_from = self.payee_name
+            operations_cash_receipt.amount += self.amount
+            operations_cash_receipt.date_received = self.date_issued
+            operations_cash_receipt.save()
+
 
 
 
