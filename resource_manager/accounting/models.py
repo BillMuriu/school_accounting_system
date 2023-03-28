@@ -69,9 +69,10 @@ class OperationsChequeReceipt(models.Model):
 
 
 class PettyCash(models.Model):
+    payee_name = models.CharField(max_length=100, default='')
+    cheque_number = models.CharField(max_length=20, unique=True, default='')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    date = models.DateField()
-    payee = models.CharField(max_length=200)
+    date_issued = models.DateField()
 
     def __str__(self):
         return f"Petty Cash - {self.amount} ({self.date}) - Payee: {self.payee}"
