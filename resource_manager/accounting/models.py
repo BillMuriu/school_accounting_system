@@ -68,8 +68,6 @@ class OperationsChequeReceipt(models.Model):
         account.save()
 
 
-from django.db import models
-
 class PettyCash(models.Model):
     payee_name = models.CharField(max_length=100, default='')
     cheque_number = models.CharField(max_length=20, unique=True, default='')
@@ -83,13 +81,13 @@ class PettyCash(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        # update OperationsCashReceipt
-        operations_cash_receipt = OperationsCashReceipt.objects.filter(account=self.operations_account).first()
-        if operations_cash_receipt:
-            operations_cash_receipt.received_from = self.payee_name
-            operations_cash_receipt.amount += self.amount
-            operations_cash_receipt.date_received = self.date_issued
-            operations_cash_receipt.save()
+        # update or create OperationsCashReceipt
+        operations_cash_receipt, _ = OperationsCashReceipt.objects.get_or_create(account=self.operations_account)
+        operations_cash_receipt.received_from = self.payee_name
+        operations_cash_receipt.amount += self.amount
+        operations_cash_receipt.date_received = self.date_issued
+        operations_cash_receipt.save()
+
 
 
 
