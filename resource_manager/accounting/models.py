@@ -205,7 +205,7 @@ class PaymentVoucher(models.Model):
         return f"{self.description} ({self.amount})"
 
     def save(self, *args, **kwargs):
-        # Set a default value for votehead
+    # Set a default value for votehead
         votehead = self.votehead
 
         if self.payment_type == 'cash':
@@ -217,16 +217,23 @@ class PaymentVoucher(models.Model):
                 cash_account.cash_balance -= self.amount
                 cash_account.total_balance = cash_account.cash_balance
                 cash_account.save()
-            self.cheque_number = None
         else:
-            self.cheque_number = self.cheque_number
+            # Deduct cheque amount from OperationsChequeAccount
+            bank_account = votehead.account
+            cheque_account = OperationsBankAccount.objects.first()
+            if bank_account.account_number == cheque_account.account_number:
+                cheque_account.bank_balance -= self.amount
+                cheque_account.total_balance = cheque_account.bank_balance
+                cheque_account.save()
+                self.cheque_number = self.cheque_number
 
         super().save(*args, **kwargs)
 
-        # Add the amount to the votehead
+    # Add the amount to the votehead
         votehead.amount_spent += self.amount
         votehead.balance = votehead.amount_budgeted - votehead.amount_spent
         votehead.save()
+
 
 
 class Cheque(models.Model):
