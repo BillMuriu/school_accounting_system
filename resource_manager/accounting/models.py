@@ -247,6 +247,16 @@ class Cheque(models.Model):
     def __str__(self):
         return f'Cheque {self.cheque_number} issued to {self.payee_name} on {self.date_issued}'
 
+    def save(self, *args, **kwargs):
+        # Automatically link the cheque to a payment voucher with the same cheque number
+        payment_voucher = PaymentVoucher.objects.filter(cheque_number=self.cheque_number).first()
+        if payment_voucher:
+            self.votehead = payment_voucher.votehead
+            self.amount = payment_voucher.amount
+            self.payee_name = payment_voucher.payee_name
+        super().save(*args, **kwargs)
+
+
 
 
 
