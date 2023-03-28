@@ -82,18 +82,18 @@ class PettyCash(models.Model):
         super().save(*args, **kwargs)
 
         # create a new OperationsCashReceipt
-        operations_receipt = OperationsCashReceipt.objects.create(account=self.operations_account)
-        operations_receipt.received_from = self.payee_name
-        operations_receipt.amount = self.amount
-        operations_receipt.date_received = self.date_issued
-        operations_receipt.save()
+        operations_receipt = OperationsCashReceipt.objects.create(
+            account=self.operations_account,
+            received_from=self.payee_name,
+            amount=self.amount,
+            date_received=self.date_issued
+        )
 
         # update the related OperationsCashAccount
         operations_account = self.operations_account
         operations_account.cash_balance += self.amount
         operations_account.total_balance = operations_account.cash_balance
         operations_account.save()
-
 
 
 
