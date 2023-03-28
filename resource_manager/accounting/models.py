@@ -73,7 +73,7 @@ class PettyCash(models.Model):
     cheque_number = models.CharField(max_length=20, unique=True, default='')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_issued = models.DateField()
-    operations_account = models.ForeignKey(OperationsCashAccount, on_delete=models.CASCADE, default=None)
+    operations_receipt = models.ForeignKey(OperationsCashReceipt, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return f"Petty Cash - {self.amount} ({self.date_issued}) - Payee: {self.payee_name}"
@@ -82,11 +82,26 @@ class PettyCash(models.Model):
         super().save(*args, **kwargs)
 
         # update or create OperationsCashReceipt
-        operations_cash_receipt, _ = self.operations_account.operationscashreceipt_set.get_or_create()
-        operations_cash_receipt.received_from = self.payee_name
-        operations_cash_receipt.amount = self.amount
-        operations_cash_receipt.date_received = self.date_issued
-        operations_cash_receipt.save()
+        operations_receipt, created = OperationsCashReceipt.objects.get_or_create(account=self.operations_account)
+        operations_receipt.received_from = self.payee_name
+        operations_receipt.amount = self.amount
+        operations_receipt.date_received = self.date_issued
+        operations_receipt.save()
+
+        if created:
+            # if the OperationsCashReceipt was just created, update the related OperationsCashAccount
+            operations_account = self.operations_receipt.account
+            operations_account.cash_balance += self.amount
+            operations_account.total_balance = operations_account.cash_balance
+            operations_account.save()
+        else:
+            # if the OperationsCashReceipt already existed, update the related OperationsCashAccount balance
+            operations_account = self.operations_receipt.account
+            operations_account.cash_balance += self.amount - self._original_amount
+            operations_account.total_balance = operations_account.cash_balance
+            operations_account.save()
+
+        self._original_amount = self.amount
 
 
 
