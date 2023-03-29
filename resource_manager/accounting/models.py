@@ -250,60 +250,6 @@ class Cheque(models.Model):
     def __str__(self):
         return f'Cheque {self.cheque_number} issued to {self.payee_name} on {self.date_issued}'
 
-    def save(self, *args, **kwargs):
-        # Check if there's a payment voucher with the same cheque number
-        try:
-            voucher = PaymentVoucher.objects.get(cheque_number=self.cheque_number)
-        except PaymentVoucher.DoesNotExist:
-            voucher = None
-
-        # Check if there's a PettyCash object with the same cheque number
-        try:
-            petty_cash = PettyCash.objects.get(cheque_number=self.cheque_number)
-        except PettyCash.DoesNotExist:
-            petty_cash = None
-
-        if voucher:
-            # Link the voucher to the cheque
-            self.votehead = voucher.votehead
-
-            # Deduct cheque amount from the votehead account
-            votehead = voucher.votehead
-            votehead.amount_spent += self.amount
-            votehead.balance = votehead.amount_budgeted - votehead.amount_spent
-            votehead.save()
-        elif petty_cash:
-            # Deduct amount from the OperationsCashAccount
-            operations_account = OperationsCashAccount.objects.first()
-            operations_account.cash_balance += self.amount
-            operations_account.total_balance = operations_account.cash_balance
-            operations_account.save()
-
-            # create a new OperationsCashReceipt
-            operations_receipt = OperationsCashReceipt.objects.create(
-                account=operations_account,
-                received_from=petty_cash.payee_name,
-                amount=self.amount,
-                date_received=petty_cash.date_issued
-            )
-
-            # update the related PettyCash object
-            petty_cash.operations_receipt = operations_receipt
-            petty_cash.save()
-
-            # Deduct cheque amount from the OperationsBankAccount
-            cheque_account = OperationsBankAccount.objects.first()
-            cheque_account.bank_balance -= self.amount
-            cheque_account.total_balance = cheque_account.bank_balance
-            cheque_account.save()
-
-            # Update the amount spent for the cheque's votehead if available
-        if self.votehead:
-            self.votehead.amount_spent += self.amount
-            self.votehead.balance = self.votehead.amount_budgeted - self.votehead.amount_spent
-            self.votehead.save()
-
-        super().save(*args, **kwargs)
 
 
 
