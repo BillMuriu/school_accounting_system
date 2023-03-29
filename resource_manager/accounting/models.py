@@ -91,7 +91,6 @@ class PettyCash(models.Model):
 
         # update the related OperationsCashAccount
         operations_account = self.operations_account
-        operations_account.cash_balance += self.amount
         operations_account.total_balance = operations_account.cash_balance
         operations_account.save()
 
