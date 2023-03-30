@@ -263,6 +263,10 @@ class Cheque(models.Model):
         return f'Cheque {self.cheque_number} issued to {self.payee_name} on {self.date_issued}'
 
     def save(self, *args, **kwargs):
+
+        # Set a default value for votehead
+        votehead = self.votehead
+
         # Check if a PaymentVoucher or PettyCash object with the same cheque_number exists
         payment_voucher_exists = PaymentVoucher.objects.filter(cheque_number=self.cheque_number).exists()
         pettycash_exists = PettyCash.objects.filter(cheque_number=self.cheque_number).exists()
@@ -273,6 +277,11 @@ class Cheque(models.Model):
             bank_account.bank_balance -= self.amount
             bank_account.total_balance = bank_account.bank_balance
             bank_account.save()
+
+            # Add the amount to the votehead
+            votehead.amount_spent += self.amount
+            votehead.balance = votehead.amount_budgeted - votehead.amount_spent
+            votehead.save()
 
         super().save(*args, **kwargs)
 
