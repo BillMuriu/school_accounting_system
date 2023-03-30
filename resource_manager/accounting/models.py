@@ -239,15 +239,15 @@ class PaymentVoucher(models.Model):
                     cheque_account.total_balance = cheque_account.bank_balance
                     cheque_account.save()
                     self.cheque_number = self.cheque_number
+                    
+                    # Add the amount to the votehead
+                    votehead.amount_spent += self.amount
+                    votehead.balance = votehead.amount_budgeted - votehead.amount_spent
+                    votehead.save()
             else:
                 self.cheque_number = self.cheque_number
 
         super().save(*args, **kwargs)
-
-        # Add the amount to the votehead
-        votehead.amount_spent += self.amount
-        votehead.balance = votehead.amount_budgeted - votehead.amount_spent
-        votehead.save()
 
 
 
