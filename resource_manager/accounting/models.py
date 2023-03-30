@@ -250,9 +250,14 @@ class Cheque(models.Model):
     def __str__(self):
         return f'Cheque {self.cheque_number} issued to {self.payee_name} on {self.date_issued}'
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
-
-
+        # Deduct cheque amount from OperationsBankAccount
+        bank_account = OperationsBankAccount.objects.first()
+        bank_account.bank_balance -= self.amount
+        bank_account.total_balance = bank_account.bank_balance
+        bank_account.save()
 
 
 
