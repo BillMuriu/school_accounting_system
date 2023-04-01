@@ -98,7 +98,7 @@ class PettyCashForm(forms.ModelForm):
         return instance
 
 
-#PaymentVoucher Form
+#Payment Voucher
 class PaymentVoucherForm(forms.ModelForm):
     class Meta:
         model = PaymentVoucher
@@ -106,3 +106,42 @@ class PaymentVoucherForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
         }
+
+    def save(self, *args, **kwargs):
+        instance = super(PaymentVoucherForm, self).save(commit=False)
+
+        # Set a default value for votehead
+        votehead = instance.votehead
+
+        if instance.payment_type == 'cash':
+            instance.cheque_number = None
+            # Deduct cash amount from OperationsCashAccount
+            bank_account = votehead.account
+            cash_account = OperationsCashAccount.objects.first()
+            if bank_account.account_number == cash_account.account_number:
+                cash_account.cash_balance -= instance.amount
+                cash_account.total_balance = cash_account.cash_balance
+                cash_account.save()
+        else:
+            # Check if a Cheque object with the same cheque_number exists
+            cheque_exists = Cheque.objects.filter(cheque_number=instance.cheque_number).exists()
+
+            if not cheque_exists:
+                # Deduct cheque amount from OperationsBankAccount
+                bank_account = votehead.account
+                cheque_account = OperationsBankAccount.objects.first()
+                if bank_account.account_number == cheque_account.account_number:
+                    cheque_account.bank_balance -= instance.amount
+                    cheque_account.total_balance = cheque_account.bank_balance
+                    cheque_account.save()
+                    instance.cheque_number = instance.cheque_number
+                    
+                    # Add the amount to the votehead
+                    votehead.amount_spent += instance.amount
+                    votehead.balance = votehead.amount_budgeted - votehead.amount_spent
+                    votehead.save()
+            else:
+                instance.cheque_number = instance.cheque_number
+
+        instance.save(*args, **kwargs)
+        return instance
