@@ -1,0 +1,23 @@
+<h1>Receipts</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Receipt Number</th>
+        <th>Date Received</th>
+        <th>Amount</th>
+        <th>Received From</th>
+        <th>Receipt Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for receipt in receipts %}
+        <tr>
+          <td>{{ receipt.receipt_number }}</td>
+          <td>{{ receipt.date_received }}</td>
+          <td>{{ receipt.amount }}</td>
+          <td>{{ receipt.received_from }}</td>
+          <td>{{ receipt.receipt_type }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>

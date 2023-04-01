@@ -41,6 +41,7 @@ def dashboard(request):
 def operations(request):
     return render(request, 'accounting/operations.html')
 
+
 #Receipts
 def receipts(request):
     cash_receipts = OperationsCashReceipt.objects.all()
