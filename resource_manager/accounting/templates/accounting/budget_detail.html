@@ -1,0 +1,29 @@
+<h1>Budget Detail</h1>
+<style>
+    th {
+    padding: 10px 20px;
+    }
+    td {
+        padding: 10px 20px;
+    }
+</style>
+<table>
+  <tbody>
+    <tr>
+      <th>Account Number:</th>
+      <td>{{ budget.account.account_number }}</td>
+    </tr>
+    <tr>
+      <th>Votehead:</th>
+      <td>{{ budget.votehead.name }}</td>
+    </tr>
+    <tr>
+      <th>Amount Budgeted:</th>
+      <td>{{ budget.amount }}</td>
+    </tr>
+    <tr>
+      <th>Date Budgeted:</th>
+      <td>{{ budget.date_budgeted }}</td>
+    </tr>
+  </tbody>
+</table>

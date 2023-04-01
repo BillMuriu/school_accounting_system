@@ -100,6 +100,14 @@ def vote_head_budget(request):
     return render(request, 'accounting/vote_head_budget.html', context)
 
 
+#Budget Detail
+def budget_detail(request, budget_id):
+    budget = get_object_or_404(OperationsBudget, id=budget_id)
+    context = {
+        'budget': budget,
+    }
+    return render(request, 'accounting/budget_detail.html', context)
+
 
 
 

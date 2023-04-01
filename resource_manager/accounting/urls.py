@@ -12,4 +12,5 @@ urlpatterns = [
 
     #Budgeting
     path('vote_head_budget/', vote_head_budget, name='vote_head_budget'),
+    path('budgets/<int:budget_id>/', budget_detail, name='budget_detail'),
 ]
