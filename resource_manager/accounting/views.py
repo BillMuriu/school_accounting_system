@@ -149,6 +149,13 @@ def create_pettycash(request):
     return render(request, 'accounting/create_pettycash.html', context)
 
 
+#PaymentVoucher
+def payment_voucher_list(request):
+    vouchers = PaymentVoucher.objects.all()
+    context = {'vouchers': vouchers}
+    return render(request, 'accounting/payment_voucher_list.html', context)
+
+
 
 
 

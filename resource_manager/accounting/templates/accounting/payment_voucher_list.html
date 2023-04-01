@@ -1,0 +1,39 @@
+<h1>Payment Vouchers</h1>
+<style>
+    th {
+    padding: 10px
+    }
+    td {
+        padding: 10px
+    }
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>Voucher Number</th>
+      <th>Date</th>
+      <th>Payee Name</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Payment Type</th>
+      <th>Vote Head</th>
+      <th>Approved By</th>
+      <th>Cheque Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for voucher in vouchers %}
+      <tr>
+        <td>{{ voucher.voucher_number }}</td>
+        <td>{{ voucher.date }}</td>
+        <td>{{ voucher.payee_name }}</td>
+        <td>{{ voucher.description }}</td>
+        <td>{{ voucher.amount }}</td>
+        <td>{{ voucher.get_payment_type_display }}</td>
+        <td>{{ voucher.votehead }}</td>
+        <td>{{ voucher.approved_by }}</td>
+        <td>{{ voucher.cheque_number }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
