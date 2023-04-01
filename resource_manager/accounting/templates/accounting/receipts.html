@@ -20,6 +20,7 @@
             <td>{{ receipt.date_received }}</td>
             <td>{{ receipt.amount }}</td>
             <td>{{ receipt.received_from }}</td>
+            <td><a href="{% url 'receipt_detail' receipt_id=receipt.id %}">View</a></td>
           </tr>
         {% endfor %}
         {% for receipt in cash_receipts %}
@@ -28,6 +29,7 @@
           <td>{{ receipt.date_received }}</td>
           <td>{{ receipt.amount }}</td>
           <td>{{ receipt.received_from }}</td>
+          <td><a href="{% url 'receipt_detail' receipt_id=receipt.id %}">View</a></td>
         </tr>
         {% endfor %}
     </tbody>
