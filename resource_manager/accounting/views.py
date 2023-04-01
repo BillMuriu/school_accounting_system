@@ -79,7 +79,6 @@ def receipt_detail(request, receipt_type, receipt_id):
 
 
 # Create Cheque Receipt
-# Create Cheque Receipt
 def create_cheque_receipt(request):
     form = ChequeReceiptForm(request.POST or None)
     if form.is_valid():
