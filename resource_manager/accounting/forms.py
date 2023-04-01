@@ -11,3 +11,17 @@ class ChequeReceiptForm(forms.ModelForm):
             'amount': forms.NumberInput(attrs={'class': 'form-control'}),
             'date_received': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
         }
+
+    def save(self, commit=True):
+        instance = super(ChequeReceiptForm, self).save(commit=False)
+        account = instance.account
+        amount = instance.amount
+
+        account.bank_balance += amount
+        account.total_balance = account.bank_balance
+
+        if commit:
+            instance.save()
+            account.save()
+
+        return instance
