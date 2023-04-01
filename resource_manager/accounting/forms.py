@@ -56,7 +56,4 @@ class OperationsBudgetForm(forms.ModelForm):
         if commit:
             budget.save()
 
-        # Send signal to update corresponding VoteHeadReceipt
-        budget_updated.send(sender=self.__class__, budget=budget)
-
         return budget
