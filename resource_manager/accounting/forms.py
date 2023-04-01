@@ -96,3 +96,13 @@ class PettyCashForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+#PaymentVoucher Form
+class PaymentVoucherForm(forms.ModelForm):
+    class Meta:
+        model = PaymentVoucher
+        fields = ['date', 'payee_name', 'description', 'amount', 'payment_type', 'votehead', 'approved_by', 'voucher_number', 'cheque_number']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }

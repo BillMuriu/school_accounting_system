@@ -155,10 +155,26 @@ def payment_voucher_list(request):
     context = {'vouchers': vouchers}
     return render(request, 'accounting/payment_voucher_list.html', context)
 
+
+#PaymentVoucher Detail
 def paymentvoucher_detail(request, pk):
     paymentvoucher = get_object_or_404(PaymentVoucher, pk=pk)
     context = {'paymentvoucher': paymentvoucher}
     return render(request, 'accounting/paymentvoucher_detail.html', context)
+
+
+#Create PaymentVoucher
+def create_paymentvoucher(request):
+    if request.method == 'POST':
+        form = PaymentVoucherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('payment_voucher_list')
+    else:
+        form = PaymentVoucherForm()
+    context = {'form': form}
+    return render(request, 'accounting/create_paymentvoucher.html', context)
+
 
 
 

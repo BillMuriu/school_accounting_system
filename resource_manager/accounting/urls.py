@@ -24,5 +24,7 @@ urlpatterns = [
     #PaymentVoucher
     path('payment-vouchers/', payment_voucher_list, name='payment_voucher_list'),
     path('paymentvoucher/<int:pk>/', paymentvoucher_detail, name='paymentvoucher_detail'),
+    path('paymentvoucher/create/', create_paymentvoucher, name='create_paymentvoucher'),
+
 
 ]
