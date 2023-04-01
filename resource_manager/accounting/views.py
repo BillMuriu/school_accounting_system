@@ -79,18 +79,18 @@ def receipt_detail(request, receipt_type, receipt_id):
 
 
 # Create Cheque Receipt
+# Create Cheque Receipt
 def create_cheque_receipt(request):
     form = ChequeReceiptForm(request.POST or None)
     if form.is_valid():
-        cheque_receipt = form.save(commit=False)
-        cheque_receipt.save()
-
+        cheque_receipt = form.save()
         return redirect('receipt_detail', receipt_type='cheque', receipt_id=cheque_receipt.id)
 
     context = {
         'form': form,
     }
     return render(request, 'accounting/create_cheque_receipt.html', context)
+
 
 
 

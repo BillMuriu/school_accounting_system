@@ -57,16 +57,6 @@ class OperationsChequeReceipt(models.Model):
     def __str__(self):
         return f"Receipt {self.id} for {self.account.account_number} (Cheque)"
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        account = self.account
-        amount = self.amount
-
-        account.bank_balance += amount
-        account.total_balance = account.bank_balance
-        account.save()
-
 
 class PettyCash(models.Model):
     payee_name = models.CharField(max_length=100, default='')
