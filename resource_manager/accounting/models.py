@@ -68,41 +68,6 @@ class PettyCash(models.Model):
     def __str__(self):
         return f"Petty Cash - {self.amount} ({self.date_issued}) - Payee: {self.payee_name}"
 
-    def save(self, *args, **kwargs):
-        # Check if a cheque with the same cheque_number already exists
-        try:
-            existing_cheque = Cheque.objects.get(cheque_number=self.cheque_number)
-            # If an existing cheque is found, do not deduct the amount from the bank account
-        except Cheque.DoesNotExist:
-            # If an existing cheque is not found, deduct the amount from the bank account
-            # create a new OperationsCashReceipt
-            operations_receipt = OperationsCashReceipt.objects.create(
-                account=self.operations_account,
-                received_from=self.payee_name,
-                amount=self.amount,
-                date_received=self.date_issued
-            )
-
-            # update the related OperationsCashAccount
-            operations_account = self.operations_account
-            operations_account.total_balance = operations_account.cash_balance
-            operations_account.save()
-
-            # Deduct amount from the OperationsBankAccount
-            bank_account = OperationsBankAccount.objects.first()
-            bank_account.bank_balance -= self.amount
-            bank_account.total_balance = bank_account.bank_balance
-            bank_account.save()
-
-        super().save(*args, **kwargs)
-
-
-
-
-
-
-
-
 
 class VoteHead(models.Model):
     ACCOUNT_TYPES = (

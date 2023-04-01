@@ -64,3 +64,35 @@ class PettyCashForm(forms.ModelForm):
     class Meta:
         model = PettyCash
         fields = ['payee_name', 'cheque_number', 'amount', 'date_issued', 'operations_account']
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Check if a cheque with the same cheque_number already exists
+        try:
+            existing_cheque = Cheque.objects.get(cheque_number=instance.cheque_number)
+            # If an existing cheque is found, do not deduct the amount from the bank account
+        except Cheque.DoesNotExist:
+            # If an existing cheque is not found, deduct the amount from the bank account
+            # create a new OperationsCashReceipt
+            operations_receipt = OperationsCashReceipt.objects.create(
+                account=instance.operations_account,
+                received_from=instance.payee_name,
+                amount=instance.amount,
+                date_received=instance.date_issued
+            )
+
+            # update the related OperationsCashAccount
+            operations_account = instance.operations_account
+            operations_account.total_balance = operations_account.cash_balance
+            operations_account.save()
+
+            # Deduct amount from the OperationsBankAccount
+            bank_account = OperationsBankAccount.objects.first()
+            bank_account.bank_balance -= instance.amount
+            bank_account.total_balance = bank_account.bank_balance
+            bank_account.save()
+
+        if commit:
+            instance.save()
+        return instance
