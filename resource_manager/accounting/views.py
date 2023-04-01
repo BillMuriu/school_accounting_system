@@ -122,6 +122,13 @@ def create_votehead_budget(request):
     return render(request, 'accounting/create_votehead_budget.html', context)
 
 
+#PettyCash
+def pettycash_list(request):
+    pettycash = PettyCash.objects.all()
+    context = {'pettycash': pettycash}
+    return render(request, 'accounting/pettycash_list.html', context)
+
+
 
 
 

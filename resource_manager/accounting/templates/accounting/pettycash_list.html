@@ -1,0 +1,31 @@
+<h1>Petty Cash Transactions</h1>
+<style>
+    th {
+        padding: 10px;
+    }
+    td {
+        padding: 10px;
+    }
+</style>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cheque Number</th>
+        <th>Payee Name</th>
+        <th>Amount</th>
+        <th>Date Issued</th>
+        <th>Operations Account</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in pettycash %}
+        <tr>
+          <td>{{ transaction.cheque_number }}</td>
+          <td>{{ transaction.payee_name }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>{{ transaction.date_issued }}</td>
+          <td>{{ transaction.operations_account }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
