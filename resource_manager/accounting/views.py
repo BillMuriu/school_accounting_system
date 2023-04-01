@@ -60,13 +60,18 @@ def receipts(request):
 def receipt_detail(request, receipt_id):
     cash_receipt = get_object_or_404(OperationsCashReceipt, id=receipt_id)
     bank_receipt = get_object_or_404(OperationsChequeReceipt, id=receipt_id)
+    
+    if cash_receipt:
+        receipt = cash_receipt
+    else:
+        receipt = bank_receipt
 
     context = {
-        'cash_receipt': cash_receipt,
-        'bank_receipt': bank_receipt,
+        'receipt': receipt,
     }
 
     return render(request, 'accounting/receipt_detail.html', context)
+
 
 
 
