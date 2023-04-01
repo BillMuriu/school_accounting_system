@@ -56,28 +56,28 @@ def receipts(request):
     return render(request, 'accounting/receipts.html', context)
 
 
-#Receipt Detail
 # Receipt Detail
-def receipt_detail(request, receipt_id):
-    cash_receipt = OperationsCashReceipt.objects.filter(id=receipt_id).first()
-    if cash_receipt:
-        context = {
-            'receipt': cash_receipt,
-            'receipt_type': 'Cash Receipt',
-        }
+def receipt_detail(request, receipt_type, receipt_id):
+    if receipt_type == 'cash':
+        receipt = OperationsCashReceipt.objects.filter(id=receipt_id).first()
         template = 'accounting/cash_receipt_detail.html'
+    elif receipt_type == 'cheque':
+        receipt = OperationsChequeReceipt.objects.filter(id=receipt_id).first()
+        template = 'accounting/cheque_receipt_detail.html'
     else:
-        bank_receipt = OperationsChequeReceipt.objects.filter(id=receipt_id).first()
-        if bank_receipt:
-            context = {
-                'receipt': bank_receipt,
-                'receipt_type': 'Cheque Receipt',
-            }
-            template = 'accounting/cheque_receipt_detail.html'
-        else:
-            raise Http404("Receipt does not exist")
-        
+        raise Http404("Receipt type does not exist")
+    
+    if not receipt:
+        raise Http404("Receipt does not exist")
+    
+    context = {
+        'receipt': receipt,
+        'receipt_type': receipt_type.capitalize() + ' Receipt',
+    }
+    
     return render(request, template, context)
+
+
 
 
 
