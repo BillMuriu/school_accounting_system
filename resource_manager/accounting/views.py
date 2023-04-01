@@ -136,6 +136,18 @@ def pettycash_detail(request, pk):
     return render(request, 'accounting/pettycash_detail.html', context)
 
 
+#Create PettyCash
+def create_pettycash(request):
+    if request.method == 'POST':
+        form = PettyCashForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('pettycash_list')
+    else:
+        form = PettyCashForm()
+    context = {'form': form}
+    return render(request, 'accounting/create_pettycash.html', context)
+
 
 
 

@@ -18,6 +18,5 @@ urlpatterns = [
     #PettyCash
     path('pettycash/', pettycash_list, name='pettycash_list'),
     path('pettycash/<int:pk>/', pettycash_detail, name='pettycash_detail'),
-
-
+    path('pettycash/create/', create_pettycash, name='create_pettycash'),
 ]

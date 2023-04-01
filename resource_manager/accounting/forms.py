@@ -57,3 +57,10 @@ class OperationsBudgetForm(forms.ModelForm):
             budget.save()
 
         return budget
+
+
+#PettyCash form
+class PettyCashForm(forms.ModelForm):
+    class Meta:
+        model = PettyCash
+        fields = ['payee_name', 'cheque_number', 'amount', 'date_issued', 'operations_account']
