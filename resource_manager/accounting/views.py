@@ -109,6 +109,18 @@ def budget_detail(request, budget_id):
     return render(request, 'accounting/budget_detail.html', context)
 
 
+#Create budget view
+def create_votehead_budget(request):
+    if request.method == 'POST':
+        form = OperationsBudgetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('vote_head_budget')
+    else:
+        form = OperationsBudgetForm()
+    context = {'form': form}
+    return render(request, 'accounting/create_votehead_budget.html', context)
+
 
 
 

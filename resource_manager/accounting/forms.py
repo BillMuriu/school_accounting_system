@@ -25,3 +25,10 @@ class ChequeReceiptForm(forms.ModelForm):
             account.save()
 
         return instance
+
+
+
+class OperationsBudgetForm(forms.ModelForm):
+    class Meta:
+        model = OperationsBudget
+        fields = ['account', 'votehead', 'amount', 'date_budgeted']
