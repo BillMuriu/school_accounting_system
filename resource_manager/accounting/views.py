@@ -34,7 +34,12 @@ def home(request):
 
 # The DashBoard
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'accounting/dashboard.html')
+
+
+#Operations
+def operations(request):
+    return render(request, 'accounting/operations.html')
 
 
 
