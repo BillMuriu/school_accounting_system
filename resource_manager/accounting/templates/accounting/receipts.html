@@ -1,4 +1,9 @@
 <h1>Receipts</h1>
+    <style>
+        th {
+        padding: 10px 20px;
+        }
+    </style>
   <table>
     <thead>
       <tr>
@@ -6,18 +11,24 @@
         <th>Date Received</th>
         <th>Amount</th>
         <th>Received From</th>
-        <th>Receipt Type</th>
       </tr>
     </thead>
     <tbody>
-      {% for receipt in receipts %}
+        {% for receipt in bank_receipts %}
         <tr>
-          <td>{{ receipt.receipt_number }}</td>
+            <td>{{ receipt.id }}</td>
+            <td>{{ receipt.date_received }}</td>
+            <td>{{ receipt.amount }}</td>
+            <td>{{ receipt.received_from }}</td>
+          </tr>
+        {% endfor %}
+        {% for receipt in cash_receipts %}
+        <tr>
+          <td>{{ receipt.id }}</td>
           <td>{{ receipt.date_received }}</td>
           <td>{{ receipt.amount }}</td>
           <td>{{ receipt.received_from }}</td>
-          <td>{{ receipt.receipt_type }}</td>
         </tr>
-      {% endfor %}
+        {% endfor %}
     </tbody>
   </table>
