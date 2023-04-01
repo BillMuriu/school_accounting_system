@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 from .models import *
 from .forms import *
 
@@ -53,6 +54,19 @@ def receipts(request):
     }
 
     return render(request, 'accounting/receipts.html', context)
+
+
+#Receipt Detail
+def receipt_detail(request, receipt_id):
+    cash_receipt = get_object_or_404(OperationsCashReceipt, id=receipt_id)
+    bank_receipt = get_object_or_404(OperationsChequeReceipt, id=receipt_id)
+
+    context = {
+        'cash_receipt': cash_receipt,
+        'bank_receipt': bank_receipt,
+    }
+
+    return render(request, 'accounting/receipt_detail.html', context)
 
 
 
