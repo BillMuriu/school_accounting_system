@@ -145,22 +145,6 @@ class VoteHeadReceipt(models.Model):
         return f"Receipt for {self.votehead} ({self.amount})"
 
 
-# Create signal for updating VoteHeadReceipt
-budget_updated = Signal()
-
-# Define receiver function for signal
-@receiver(budget_updated, sender=OperationsBudget)
-def update_votehead_receipt(sender, budget, **kwargs):
-    # Find corresponding VoteHeadReceipt and update amount
-    try:
-        receipt = VoteHeadReceipt.objects.get(votehead=budget.votehead)
-        receipt.amount += budget.amount
-        receipt.save()
-    except VoteHeadReceipt.DoesNotExist:
-        # Create new VoteHeadReceipt if one does not exist
-        receipt = VoteHeadReceipt.objects.create(votehead=budget.votehead, amount=budget.amount, date_received=budget.date_budgeted)
-
-
 class PaymentVoucher(models.Model):
     PAYMENT_TYPES = (
         ('cash', 'Cash'),
