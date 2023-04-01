@@ -129,6 +129,14 @@ def pettycash_list(request):
     return render(request, 'accounting/pettycash_list.html', context)
 
 
+#PettyCashDetail
+def pettycash_detail(request, pk):
+    pettycash = get_object_or_404(PettyCash, pk=pk)
+    context = {'pettycash': pettycash}
+    return render(request, 'accounting/pettycash_detail.html', context)
+
+
+
 
 
 

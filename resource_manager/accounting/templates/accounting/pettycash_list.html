@@ -25,6 +25,7 @@
           <td>{{ transaction.amount }}</td>
           <td>{{ transaction.date_issued }}</td>
           <td>{{ transaction.operations_account }}</td>
+          <td><a href="{% url 'pettycash_detail' transaction.pk %}">Details</a></td>
         </tr>
       {% endfor %}
     </tbody>

@@ -1,0 +1,31 @@
+<h1>Petty Cash Details</h1>
+<style>
+    td {
+        padding: 10px;
+    }
+</style>
+  <hr>
+  <table>
+    <tr>
+      <td><strong>Payee Name:</strong></td>
+      <td>{{ pettycash.payee_name }}</td>
+    </tr>
+    <tr>
+      <td><strong>Cheque Number:</strong></td>
+      <td>{{ pettycash.cheque_number }}</td>
+    </tr>
+    <tr>
+      <td><strong>Amount:</strong></td>
+      <td>{{ pettycash.amount }}</td>
+    </tr>
+    <tr>
+      <td><strong>Date Issued:</strong></td>
+      <td>{{ pettycash.date_issued }}</td>
+    </tr>
+    <tr>
+      <td><strong>Operations Account:</strong></td>
+      <td>{{ pettycash.operations_account }}</td>
+    </tr>
+  </table>
+  <br>
+  <a href="{% url 'pettycash_list' %}">Back to List</a>
