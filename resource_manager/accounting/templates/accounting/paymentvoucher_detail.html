@@ -1,0 +1,55 @@
+<h1>Payment Voucher Detail</h1>
+<style>
+    th {
+    padding: 10px
+    }
+    td {
+        padding: 10px
+    }
+</style>
+<hr>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Date</th>
+      <td>{{ paymentvoucher.date }}</td>
+    </tr>
+    <tr>
+      <th>Payee Name</th>
+      <td>{{ paymentvoucher.payee_name }}</td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td>{{ paymentvoucher.description }}</td>
+    </tr>
+    <tr>
+      <th>Amount</th>
+      <td>{{ paymentvoucher.amount }}</td>
+    </tr>
+    <tr>
+      <th>Payment Type</th>
+      <td>{{ paymentvoucher.get_payment_type_display }}</td>
+    </tr>
+    <tr>
+      <th>Votehead</th>
+      <td>{{ paymentvoucher.votehead }}</td>
+    </tr>
+    <tr>
+      <th>Approved By</th>
+      <td>{{ paymentvoucher.approved_by }}</td>
+    </tr>
+    <tr>
+      <th>Voucher Number</th>
+      <td>{{ paymentvoucher.voucher_number }}</td>
+    </tr>
+    {% if paymentvoucher.payment_type == 'cheque' %}
+    <tr>
+      <th>Cheque Number</th>
+      <td>{{ paymentvoucher.cheque_number }}</td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+<a href="{% url 'payment_voucher_list' %}" class="btn btn-primary">Back to Payment Voucher List</a>

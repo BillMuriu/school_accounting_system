@@ -24,7 +24,7 @@
   <tbody>
     {% for voucher in vouchers %}
       <tr>
-        <td>{{ voucher.voucher_number }}</td>
+        <td><a href="{% url 'paymentvoucher_detail' voucher.id %}">{{ voucher.voucher_number }}</a></td>
         <td>{{ voucher.date }}</td>
         <td>{{ voucher.payee_name }}</td>
         <td>{{ voucher.description }}</td>

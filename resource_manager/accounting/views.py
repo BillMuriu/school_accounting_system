@@ -155,6 +155,12 @@ def payment_voucher_list(request):
     context = {'vouchers': vouchers}
     return render(request, 'accounting/payment_voucher_list.html', context)
 
+def paymentvoucher_detail(request, pk):
+    paymentvoucher = get_object_or_404(PaymentVoucher, pk=pk)
+    context = {'paymentvoucher': paymentvoucher}
+    return render(request, 'accounting/paymentvoucher_detail.html', context)
+
+
 
 
 
