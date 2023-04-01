@@ -91,7 +91,9 @@ def create_cheque_receipt(request):
     return render(request, 'accounting/create_cheque_receipt.html', context)
 
 
-
+#Budgeting
+def vote_head_budget(request):
+    return render(request, 'accounting/vote_head_budget.html')
 
 
 
