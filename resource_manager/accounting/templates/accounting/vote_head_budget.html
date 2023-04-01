@@ -1,1 +1,29 @@
-<h2>Budget</h2>
+<h1>Vote Head Budget</h1>
+<style>
+    th {
+    padding: 10px 20px;
+    }
+    td {
+        padding: 10px 20px;
+    }
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>Account Number</th>
+      <th>Votehead</th>
+      <th>Amount Budgeted</th>
+      <th>Date Budgeted</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for budget in budgets %}
+    <tr>
+      <td>{{ budget.account.account_number }}</td>
+      <td>{{ budget.votehead.name }}</td>
+      <td>{{ budget.amount }}</td>
+      <td>{{ budget.date_budgeted }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -93,7 +93,12 @@ def create_cheque_receipt(request):
 
 #Budgeting
 def vote_head_budget(request):
-    return render(request, 'accounting/vote_head_budget.html')
+    budgets = OperationsBudget.objects.all()
+    context = {
+        'budgets': budgets
+    }
+    return render(request, 'accounting/vote_head_budget.html', context)
+
 
 
 
