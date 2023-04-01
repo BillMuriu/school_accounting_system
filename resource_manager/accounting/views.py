@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import Http404
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from .forms import *
@@ -57,23 +57,24 @@ def receipts(request):
 
 
 #Receipt Detail
+# Receipt Detail
 def receipt_detail(request, receipt_id):
-    try:
-        cash_receipt = OperationsCashReceipt.objects.get(id=receipt_id)
+    cash_receipt = OperationsCashReceipt.objects.filter(id=receipt_id).first()
+    if cash_receipt:
         context = {
             'receipt': cash_receipt,
             'receipt_type': 'Cash Receipt',
         }
         template = 'accounting/cash_receipt_detail.html'
-    except OperationsCashReceipt.DoesNotExist:
-        try:
-            cheque_receipt = OperationsChequeReceipt.objects.get(id=receipt_id)
+    else:
+        bank_receipt = OperationsChequeReceipt.objects.filter(id=receipt_id).first()
+        if bank_receipt:
             context = {
-                'receipt': cheque_receipt,
+                'receipt': bank_receipt,
                 'receipt_type': 'Cheque Receipt',
             }
             template = 'accounting/cheque_receipt_detail.html'
-        except OperationsChequeReceipt.DoesNotExist:
+        else:
             raise Http404("Receipt does not exist")
         
     return render(request, template, context)
