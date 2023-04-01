@@ -32,6 +32,11 @@ def home(request):
     return render(request, 'accounting/cashbook.html', context)
 
 
+# The DashBoard
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+
 
 
 
