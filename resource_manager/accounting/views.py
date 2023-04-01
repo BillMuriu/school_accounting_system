@@ -41,6 +41,18 @@ def dashboard(request):
 def operations(request):
     return render(request, 'accounting/operations.html')
 
+#Receipts
+def receipts(request):
+    cash_receipts = OperationsCashReceipt.objects.all()
+    bank_receipts = OperationsChequeReceipt.objects.all()
+
+    context = {
+        'cash_receipts': cash_receipts,
+        'bank_receipts': bank_receipts,
+    }
+
+    return render(request, 'accounting/receipts.html', context)
+
 
 
 
