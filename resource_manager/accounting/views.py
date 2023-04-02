@@ -192,6 +192,22 @@ def cheque_detail(request, cheque_id):
     return render(request, 'accounting/cheque_detail.html', context)
 
 
+# The create cheque view
+def create_cheque(request):
+    if request.method == 'POST':
+        form = ChequeForm(request.POST)
+        if form.is_valid():
+            cheque = form.save()
+            return redirect('cheque_detail', cheque_id=cheque.pk)
+    else:
+        form = ChequeForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounting/create_cheque.html', context)
+
+
+
 
 
 

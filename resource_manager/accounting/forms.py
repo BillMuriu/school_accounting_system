@@ -145,3 +145,10 @@ class PaymentVoucherForm(forms.ModelForm):
 
         instance.save(*args, **kwargs)
         return instance
+    
+
+#Cheque creationform
+class ChequeForm(forms.ModelForm):
+    class Meta:
+        model = Cheque
+        fields = ['payee_name', 'cheque_number', 'amount', 'date_issued', 'votehead', 'remarks']
