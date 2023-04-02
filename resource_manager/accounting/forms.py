@@ -33,7 +33,9 @@ class OperationsBudgetForm(forms.ModelForm):
         model = OperationsBudget
         fields = ['account', 'votehead', 'amount', 'date_budgeted']
 
-    def save(self, commit=True):
+    def save(self, *args, **kwargs):
+        is_new = self.instance.pk is None  # Check if this is a newly created budget
+
         budget = super().save(commit=False)
 
         # Update account balance
@@ -53,10 +55,20 @@ class OperationsBudgetForm(forms.ModelForm):
         votehead.save()
 
         # Save budget
-        if commit:
+        if kwargs.get('commit', True):
             budget.save()
 
+        if is_new:
+            # Create a new VoteHeadReceipt instance corresponding to the newly created budget
+            votehead_receipt = VoteHeadReceipt(
+                votehead=budget.votehead,
+                amount=budget.amount,
+                date_received=budget.date_budgeted
+            )
+            votehead_receipt.save()
+
         return budget
+
 
 
 #PettyCash form
