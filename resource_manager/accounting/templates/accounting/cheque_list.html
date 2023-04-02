@@ -23,7 +23,7 @@
   <tbody>
     {% for cheque in cheques %}
     <tr>
-      <td>{{ cheque.cheque_number }}</td>
+      <td><a href="{% url 'cheque_detail' cheque.id %}">{{ cheque.cheque_number }}</a></td>
       <td>{{ cheque.payee_name }}</td>
       <td>{{ cheque.amount }}</td>
       <td>{{ cheque.date_issued }}</td>

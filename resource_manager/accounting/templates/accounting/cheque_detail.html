@@ -1,0 +1,35 @@
+<h1>Cheque Details</h1>
+<style>
+    td {
+        padding: 10px;
+    }
+</style>
+<hr>
+<table>
+    <tr>
+        <td><strong>Payee Name:</strong></td>
+        <td>{{ cheque.payee_name }}</td>
+    </tr>
+    <tr>
+        <td><strong>Cheque Number:</strong></td>
+        <td>{{ cheque.cheque_number }}</td>
+    </tr>
+    <tr>
+        <td><strong>Amount:</strong></td>
+        <td>{{ cheque.amount }}</td>
+    </tr>
+    <tr>
+        <td><strong>Date Issued:</strong></td>
+        <td>{{ cheque.date_issued }}</td>
+    </tr>
+    <tr>
+        <td><strong>Votehead:</strong></td>
+        <td>{{ cheque.votehead }}</td>
+    </tr>
+    <tr>
+        <td><strong>Remarks:</strong></td>
+        <td>{{ cheque.remarks }}</td>
+    </tr>
+</table>
+<br>
+<a href="{% url 'cheque_list' %}">Back to List</a>

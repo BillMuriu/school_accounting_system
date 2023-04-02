@@ -183,6 +183,16 @@ def cheque_list(request):
     return render(request, 'accounting/cheque_list.html', context)
 
 
+#The cheque detail
+def cheque_detail(request, cheque_id):
+    cheque = get_object_or_404(Cheque, id=cheque_id)
+    context = {
+        'cheque': cheque,
+    }
+    return render(request, 'accounting/cheque_detail.html', context)
+
+
+
 
 
 
