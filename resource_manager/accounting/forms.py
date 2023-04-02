@@ -147,8 +147,34 @@ class PaymentVoucherForm(forms.ModelForm):
         return instance
     
 
-#Cheque creationform
+#cheque creation form
 class ChequeForm(forms.ModelForm):
     class Meta:
         model = Cheque
         fields = ['payee_name', 'cheque_number', 'amount', 'date_issued', 'votehead', 'remarks']
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Set a default value for votehead
+        votehead = instance.votehead
+
+        # Check if a PaymentVoucher or PettyCash object with the same cheque_number exists
+        payment_voucher_exists = PaymentVoucher.objects.filter(cheque_number=instance.cheque_number).exists()
+        pettycash_exists = PettyCash.objects.filter(cheque_number=instance.cheque_number).exists()
+
+        if not payment_voucher_exists and not pettycash_exists:
+            # Deduct amount from the OperationsBankAccount
+            bank_account = OperationsBankAccount.objects.first()
+            bank_account.bank_balance -= instance.amount
+            bank_account.total_balance = bank_account.bank_balance
+            bank_account.save()
+
+            # Add the amount to the votehead
+            votehead.amount_spent += instance.amount
+            votehead.balance = votehead.amount_budgeted - votehead.amount_spent
+            votehead.save()
+
+        if commit:
+            instance.save()
+        return instance
