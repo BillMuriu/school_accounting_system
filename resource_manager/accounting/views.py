@@ -176,6 +176,12 @@ def create_paymentvoucher(request):
     return render(request, 'accounting/create_paymentvoucher.html', context)
 
 
+#The cheques
+def cheque_list(request):
+    cheques = Cheque.objects.all()
+    context = {'cheques': cheques}
+    return render(request, 'accounting/cheque_list.html', context)
+
 
 
 
