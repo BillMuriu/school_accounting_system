@@ -31,5 +31,8 @@ urlpatterns = [
     path('cheques/<int:cheque_id>/', cheque_detail, name='cheque_detail'),
     path('cheques/create/', create_cheque, name='create_cheque'),
 
+    #cashbook
+    path('cashbook/', cashbook, name='cashbook'),
+
 
 ]

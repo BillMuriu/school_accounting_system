@@ -75,7 +75,7 @@
     {% if payment.payment_type == 'cash' %}
         <tr>
             <td>{{ payment.date }}</td>
-            <td>{{ payment.to_whom_paid }}</td>
+            <td>{{ payment.payee_name }}</td>
             <td>{{ payment.voucher_number }}</td>
             <td></td>
             <td>{{ payment.amount }}</td>
@@ -93,7 +93,7 @@
     {% if payment.payment_type == 'cheque' %}
         <tr>
             <td>{{ payment.date }}</td>
-            <td>{{ payment.to_whom_paid }}</td>
+            <td>{{ payment.payee_name }}</td>
             <td>{{ payment.voucher_number }}</td>
             <td>{{ payment.cheque_number }}</td>
             <td></td>
