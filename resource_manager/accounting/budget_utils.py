@@ -14,10 +14,6 @@ def update_voteheadreceipts(month, year):
         # If no cheque receipts found, return without doing anything
         return
 
-    # Check if budgets have already been updated for this month and year
-    if cheque_receipt.is_updated:
-        return
-
     # Get all the payment vouchers for the given month and year
     payment_vouchers = PaymentVoucher.objects.filter(date__year=year, date__month=month)
 
@@ -62,7 +58,3 @@ def update_voteheadreceipts(month, year):
         )
         votehead_receipt.amount += budget.amount
         votehead_receipt.save()
-
-    # Set the is_updated field to True
-    cheque_receipt.is_updated = True
-    cheque_receipt.save()
