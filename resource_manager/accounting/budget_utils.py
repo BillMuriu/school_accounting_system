@@ -9,35 +9,54 @@ def update_voteheadreceipts():
     current_month = datetime.now().month
     current_year = datetime.now().year
 
-    # Get the operation cheque receipt for the current month and year
-    cheque_receipts = OperationsChequeReceipt.objects.filter(date_received__year=current_year, date_received__month=current_month)
-
-    if not cheque_receipts:
+    # Get the cheque receipts for the current month and year
+    try:
+        cheque_receipt = OperationsChequeReceipt.objects.get(date_received__year=current_year, date_received__month=current_month)
+    except OperationsChequeReceipt.DoesNotExist:
+        # If no cheque receipts found, return without doing anything
         return
 
-    # Get or create the operations budget for this account
-    for receipt in cheque_receipts:
+    # Get all the payment vouchers for the current month and year
+    payment_vouchers = PaymentVoucher.objects.filter(date__year=current_year, date__month=current_month)
+
+    # Get all the cheques for the current month and year
+    cheques = Cheque.objects.filter(date__year=current_year, date__month=current_month)
+
+    # Get all the unique voteheads associated with payment vouchers and cheques for the current month and year
+    voteheads = set()
+    for pv in payment_vouchers:
+        if pv.vote_head:
+            voteheads.add(pv.vote_head)
+    for ch in cheques:
+        if ch.vote_head:
+            voteheads.add(ch.vote_head)
+
+    # Create/update the operations budgets and update the votehead receipts
+    total_budget_amount = 0
+    for votehead in voteheads:
+        # Get or create the operations budget for this votehead
         try:
-            budget = OperationsBudget.objects.get(account=receipt.account, date_budgeted__year=current_year, date_budgeted__month=current_month)
+            budget = OperationsBudget.objects.get(vote_head=votehead, date_budgeted__year=current_year, date_budgeted__month=current_month)
         except OperationsBudget.DoesNotExist:
             budget = OperationsBudget(
-                account=receipt.account,
+                vote_head=votehead,
                 amount=0,
                 date_budgeted=timezone.now()
             )
         budget.save()
 
-        # Calculate the budget amount for this receipt
-        max_budget_amount = receipt.amount
+        # Calculate the budget amount for this votehead
+        max_budget_amount = cheque_receipt.amount - total_budget_amount
         budget_amount = random.uniform(0, max_budget_amount)
 
-        # Update the operations budget amount for this receipt
+        # Update the operations budget amount for this votehead
         budget.amount += budget_amount
         budget.save()
+        total_budget_amount += budget_amount
 
-        # Create or update the votehead receipt for this account and month
+        # Create or update the votehead receipt for this votehead and month
         votehead_receipt, _ = VoteHeadReceipt.objects.get_or_create(
-            account=receipt.account,
+            vote_head=votehead,
             date_received__year=current_year,
             date_received__month=current_month,
             defaults={'amount': 0}
