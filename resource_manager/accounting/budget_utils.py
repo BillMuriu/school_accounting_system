@@ -71,5 +71,7 @@ def update_voteheadreceipts():
         # Ensure the total operations budget amount equals the total amount of all the cheque receipts for this votehead
         budget_total_amount = OperationsBudget.objects.filter(votehead=votehead, date_budgeted__year=current_year, date_budgeted__month=current_month).aggregate(Sum('amount'))['amount__sum']
         if budget_total_amount != total_amount:
-            budget.amount += total_amount - budget_total_amount
-            budget.save()
+            budget_ratio = total_amount / budget_total_amount
+            for operations_budget in OperationsBudget.objects.filter(votehead=votehead, date_budgeted__year=current_year, date_budgeted__month=current_month):
+                operations_budget.amount *= budget_ratio
+                operations_budget.save()
