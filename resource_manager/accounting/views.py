@@ -227,6 +227,9 @@ def my_view(request):
     previous_month = previous_date.month
     previous_year = previous_date.year
 
+    # Update the votehead budgets for the previous month and year
+    update_voteheadreceipts(previous_month, previous_year)
+
     # Get all the cheque receipts for the previous month and year
     cheque_receipts = OperationsChequeReceipt.objects.filter(date_received__year=previous_year, date_received__month=previous_month)
 
@@ -239,6 +242,7 @@ def my_view(request):
         'votehead_budgets': votehead_budgets
     }
     return render(request, 'accounting/my_template.html', context)
+
 
 
 
