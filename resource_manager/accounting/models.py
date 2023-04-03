@@ -92,6 +92,7 @@ class VoteHead(models.Model):
 
 class OperationsBudget(models.Model):
     account = models.ForeignKey(OperationsBankAccount, on_delete=models.CASCADE)
+    cheque_receipt = models.ForeignKey(OperationsChequeReceipt, on_delete=models.CASCADE, default='')
     votehead = models.ForeignKey(VoteHead, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_budgeted = models.DateField()

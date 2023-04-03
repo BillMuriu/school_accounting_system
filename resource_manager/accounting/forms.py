@@ -29,6 +29,8 @@ class ChequeReceiptForm(forms.ModelForm):
 
 
 class OperationsBudgetForm(forms.ModelForm):
+    cheque_receipt = forms.ModelChoiceField(queryset=OperationsChequeReceipt.objects.all())
+    
     class Meta:
         model = OperationsBudget
         fields = ['account', 'votehead', 'amount', 'date_budgeted']
