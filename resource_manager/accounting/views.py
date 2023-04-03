@@ -241,7 +241,7 @@ def my_view(request):
         'cheque_receipts': cheque_receipts,
         'votehead_budgets': votehead_budgets
     }
-    return render(request, 'my_template.html', context)
+    return render(request, 'accounting/my_template.html', context)
 
 
 

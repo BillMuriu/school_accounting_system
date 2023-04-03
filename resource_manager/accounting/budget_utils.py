@@ -1,4 +1,5 @@
 import random
+import decimal
 from datetime import datetime
 from django.db.models import Sum
 from django.utils import timezone
@@ -31,19 +32,23 @@ def update_voteheadreceipts(month, year):
     total_budget_amount = 0
     for votehead in voteheads:
         # Get or create the operations budget for this votehead
+        my_account = OperationsBankAccount.objects.first()
+
         try:
-            budget = OperationsBudget.objects.get(vote_head=votehead, date_budgeted__year=year, date_budgeted__month=month)
+            budget = OperationsBudget.objects.get(votehead=votehead, date_budgeted__year=year, date_budgeted__month=month)
         except OperationsBudget.DoesNotExist:
             budget = OperationsBudget(
-                vote_head=votehead,
+                votehead=votehead,
+                account=my_account,
                 amount=0,
-                date_budgeted=timezone.now()
+                date_budgeted=timezone.now(),
+                cheque_receipt=cheque_receipt,
             )
         budget.save()
 
         # Calculate the budget amount for this votehead
         max_budget_amount = cheque_receipt.amount - total_budget_amount
-        budget_amount = random.uniform(0, max_budget_amount)
+        budget_amount = decimal.Decimal(str(random.uniform(0, float(max_budget_amount))))
 
         # Update the operations budget amount for this votehead
         budget.amount += budget_amount
@@ -52,9 +57,8 @@ def update_voteheadreceipts(month, year):
 
         # Create or update the votehead receipt for this votehead and month
         votehead_receipt, _ = VoteHeadReceipt.objects.get_or_create(
-            vote_head=votehead,
-            date_received__year=year,
-            date_received__month=month,
+            votehead=votehead,
+            date_received=datetime(year=year, month=month, day=1),
             defaults={'amount': 0}
         )
         votehead_receipt.amount += budget_amount
