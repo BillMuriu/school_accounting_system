@@ -29,11 +29,12 @@ class ChequeReceiptForm(forms.ModelForm):
 
 
 class OperationsBudgetForm(forms.ModelForm):
-    cheque_receipt = forms.ModelChoiceField(queryset=OperationsChequeReceipt.objects.all())
+    cheque_receipt = forms.ModelChoiceField(queryset=OperationsChequeReceipt.objects.all(), required=False)
     
     class Meta:
         model = OperationsBudget
-        fields = ['account', 'votehead', 'amount', 'date_budgeted']
+        fields = ['account', 'cheque_receipt', 'votehead', 'amount', 'date_budgeted']
+
 
     def save(self, *args, **kwargs):
         is_new = self.instance.pk is None  # Check if this is a newly created budget
