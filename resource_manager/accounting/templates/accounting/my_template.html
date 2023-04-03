@@ -1,0 +1,23 @@
+<h1>Cheque Receipts and Votehead Budgets</h1>
+
+{% if cheque_receipts %}
+  <h2>Cheque Receipts:</h2>
+  <ul>
+  {% for receipt in cheque_receipts %}
+    <li>{{ receipt.date_received }} - {{ receipt.amount }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No cheque receipts found for the selected month and year.</p>
+{% endif %}
+
+{% if votehead_budgets %}
+  <h2>Votehead Budgets:</h2>
+  <ul>
+  {% for budget in votehead_budgets %}
+    <li>{{ budget.votehead }} - {{ budget.amount }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>No votehead budgets found for the selected month and year.</p>
+{% endif %}
