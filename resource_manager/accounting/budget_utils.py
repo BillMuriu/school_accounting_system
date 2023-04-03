@@ -4,25 +4,21 @@ from django.db.models import Sum
 from django.utils import timezone
 from .models import *
 
-def update_voteheadreceipts():
-    # Get the current month and year
-    current_month = datetime.now().month
-    current_year = datetime.now().year
-
-    # Get the cheque receipts for the current month and year
+def update_voteheadreceipts(month, year):
+    # Get the cheque receipts for the given month and year
     try:
-        cheque_receipt = OperationsChequeReceipt.objects.get(date_received__year=current_year, date_received__month=current_month)
+        cheque_receipt = OperationsChequeReceipt.objects.get(date_received__year=year, date_received__month=month)
     except OperationsChequeReceipt.DoesNotExist:
         # If no cheque receipts found, return without doing anything
         return
 
-    # Get all the payment vouchers for the current month and year
-    payment_vouchers = PaymentVoucher.objects.filter(date__year=current_year, date__month=current_month)
+    # Get all the payment vouchers for the given month and year
+    payment_vouchers = PaymentVoucher.objects.filter(date__year=year, date__month=month)
 
-    # Get all the cheques for the current month and year
-    cheques = Cheque.objects.filter(date__year=current_year, date__month=current_month)
+    # Get all the cheques for the given month and year
+    cheques = Cheque.objects.filter(date__year=year, date__month=month)
 
-    # Get all the unique voteheads associated with payment vouchers and cheques for the current month and year
+    # Get all the unique voteheads associated with payment vouchers and cheques for the given month and year
     voteheads = set()
     for pv in payment_vouchers:
         if pv.vote_head:
@@ -36,7 +32,7 @@ def update_voteheadreceipts():
     for votehead in voteheads:
         # Get or create the operations budget for this votehead
         try:
-            budget = OperationsBudget.objects.get(vote_head=votehead, date_budgeted__year=current_year, date_budgeted__month=current_month)
+            budget = OperationsBudget.objects.get(vote_head=votehead, date_budgeted__year=year, date_budgeted__month=month)
         except OperationsBudget.DoesNotExist:
             budget = OperationsBudget(
                 vote_head=votehead,
@@ -57,8 +53,8 @@ def update_voteheadreceipts():
         # Create or update the votehead receipt for this votehead and month
         votehead_receipt, _ = VoteHeadReceipt.objects.get_or_create(
             vote_head=votehead,
-            date_received__year=current_year,
-            date_received__month=current_month,
+            date_received__year=year,
+            date_received__month=month,
             defaults={'amount': 0}
         )
         votehead_receipt.amount += budget_amount

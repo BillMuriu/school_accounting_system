@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import *
 from .forms import *
 from .budget_utils import update_voteheadreceipts
+from datetime import datetime, timedelta
 
 
 
@@ -217,7 +218,31 @@ def cashbook(request):
 
 
 
+#what I need
+def my_view(request):
+    # Get the current month and year
+    current_month = datetime.now().month
+    current_year = datetime.now().year
+    
+    # Get the previous month and year
+    previous_month = (datetime.now().replace(day=1) - timedelta(days=1)).month
+    previous_year = (datetime.now().replace(day=1) - timedelta(days=1)).year
+    
+    # Call the update_voteheadreceipts function to update the votehead budgets for the previous month
+    update_voteheadreceipts(previous_month, previous_year)
 
+    # Get all the cheque receipts for the previous month and year
+    cheque_receipts = OperationsChequeReceipt.objects.filter(date_received__year=previous_year, date_received__month=previous_month)
+
+    # Get the votehead budgets for the previous month and year
+    votehead_budgets = OperationsBudget.objects.filter(date_budgeted__year=previous_year, date_budgeted__month=previous_month)
+
+    # Pass the cheque_receipts and votehead_budgets to the template
+    context = {
+        'cheque_receipts': cheque_receipts,
+        'votehead_budgets': votehead_budgets
+    }
+    return render(request, 'my_template.html', context)
 
 
 
