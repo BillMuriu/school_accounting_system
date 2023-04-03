@@ -23,23 +23,33 @@ def update_voteheadreceipts():
         else:
             grouped_cheque_receipts[votehead] = [receipt]
 
-    # Create the operations budgets and update the votehead receipts
+    # Create/update the operations budgets and update the votehead receipts
     for votehead, receipts in grouped_cheque_receipts.items():
         # Calculate the total amount of all the cheque receipts for this votehead
         total_amount = sum(receipt.amount for receipt in receipts)
 
-        # Create the operations budget for this votehead
-        budget = OperationsBudget(
-            account=receipts[0].account,
-            cheque_receipt=receipts[0],
-            votehead=votehead,
-            amount=0,
-            date_budgeted=timezone.now()
-        )
+        # Check if any payment vouchers or cheques for this votehead exist for this month
+        if not (OperationsChequeReceipt.objects.filter(date_received__year=current_year, date_received__month=current_month, votehead__id=votehead.id).exists() or PaymentVoucher.objects.filter(date__year=current_year, date__month=current_month, votehead__id=votehead.id).exists()):
+            continue
+
+        # Get or create the operations budget for this votehead
+        try:
+            budget = OperationsBudget.objects.get(votehead=votehead, date_budgeted__year=current_year, date_budgeted__month=current_month)
+        except OperationsBudget.DoesNotExist:
+            budget = OperationsBudget(
+                account=receipts[0].account,
+                votehead=votehead,
+                amount=0,
+                date_budgeted=timezone.now()
+            )
         budget.save()
 
         # Update the budget amount for each receipt and create/update the votehead receipt
         for receipt in receipts:
+            # Check if the receipt is tied to this votehead
+            if not receipt.operationsbudget_set.filter(votehead=votehead).exists():
+                continue
+
             # Generate a random budget amount for this receipt
             max_budget_amount = receipt.amount
             budget_amount = random.uniform(0, max_budget_amount)
