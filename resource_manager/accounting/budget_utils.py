@@ -16,16 +16,16 @@ def update_voteheadreceipts(month, year):
     payment_vouchers = PaymentVoucher.objects.filter(date__year=year, date__month=month)
 
     # Get all the cheques for the given month and year
-    cheques = Cheque.objects.filter(date__year=year, date__month=month)
+    cheques = Cheque.objects.filter(date_issued__year=year, date_issued__month=month)
 
     # Get all the unique voteheads associated with payment vouchers and cheques for the given month and year
     voteheads = set()
     for pv in payment_vouchers:
-        if pv.vote_head:
-            voteheads.add(pv.vote_head)
+        if pv.votehead:
+            voteheads.add(pv.votehead)
     for ch in cheques:
-        if ch.vote_head:
-            voteheads.add(ch.vote_head)
+        if ch.votehead:
+            voteheads.add(ch.votehead)
 
     # Create/update the operations budgets and update the votehead receipts
     total_budget_amount = 0

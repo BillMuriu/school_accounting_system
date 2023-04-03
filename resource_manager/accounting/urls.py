@@ -34,5 +34,8 @@ urlpatterns = [
     #cashbook
     path('cashbook/', cashbook, name='cashbook'),
 
+    #My url
+    path('my-url/', my_view, name='my_view'),
+
 
 ]
