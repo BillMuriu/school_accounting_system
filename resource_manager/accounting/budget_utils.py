@@ -4,7 +4,7 @@ from datetime import datetime
 from django.db.models import Sum
 from django.utils import timezone
 
-from .models import OperationsChequeReceipt, OperationsBudget, VoteHeadReceipt, VoteHead
+from .models import *
 
 def update_voteheadreceipts():
     # Get the current month and year
