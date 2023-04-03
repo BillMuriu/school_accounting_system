@@ -9,12 +9,14 @@ def update_voteheadreceipts():
     current_month = datetime.now().month
     current_year = datetime.now().year
 
-    # Get all the cheque receipts for the current month and year
+    # Get the operation cheque receipt for the current month and year
     cheque_receipts = OperationsChequeReceipt.objects.filter(date_received__year=current_year, date_received__month=current_month)
 
-    # Create/update the operations budgets and update the votehead receipts
+    if not cheque_receipts:
+        return
+
+    # Get or create the operations budget for this account
     for receipt in cheque_receipts:
-        # Get or create the operations budget for this account
         try:
             budget = OperationsBudget.objects.get(account=receipt.account, date_budgeted__year=current_year, date_budgeted__month=current_month)
         except OperationsBudget.DoesNotExist:
