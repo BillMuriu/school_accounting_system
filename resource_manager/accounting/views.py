@@ -217,8 +217,7 @@ def cashbook(request):
 
 
 
-
-#what I need
+#What I need
 def my_view(request):
     # Get the current month and year
     current_month = datetime.now().month
@@ -228,7 +227,7 @@ def my_view(request):
     previous_month = (datetime.now().replace(day=1) - timedelta(days=1)).month
     previous_year = (datetime.now().replace(day=1) - timedelta(days=1)).year
     
-    # Call the update_voteheadreceipts function to update the votehead budgets for the previous month
+    # Call the updated update_voteheadreceipts function to update the votehead budgets for the previous month
     update_voteheadreceipts(previous_month, previous_year)
 
     # Get all the cheque receipts for the previous month and year
