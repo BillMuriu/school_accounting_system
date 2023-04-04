@@ -245,12 +245,7 @@ def my_view(request):
         cache.set(f'votehead_budgets_{previous_month}_{previous_year}', votehead_budgets)
         cache.set(f'cheque_receipts_{previous_month}_{previous_year}', cheque_receipts)
 
-    # Pass the cached values of the cheque_receipts and votehead_budgets to the template
-    context = {
-        'cheque_receipts': cheque_receipts,
-        'votehead_budgets': votehead_budgets
-    }
-    return render(request, 'accounting/my_template.html', context)
+
 
 
 
