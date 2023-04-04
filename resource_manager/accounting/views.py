@@ -228,33 +228,18 @@ def my_view(request):
     previous_month = previous_date.month
     previous_year = previous_date.year
 
-    # Get the cached values of the votehead budgets and cheque receipts, or calculate and cache them if they don't exist
-    votehead_budgets = cache.get(f'votehead_budgets_{previous_month}_{previous_year}')
-    cheque_receipts = cache.get(f'cheque_receipts_{previous_month}_{previous_year}')
-    if not votehead_budgets or not cheque_receipts:
-        # Update the votehead budgets for the previous month and year
-        update_voteheadreceipts(previous_month, previous_year)
+    # Update the votehead budgets for the previous month and year
+    update_voteheadreceipts(previous_month, previous_year)
 
-        # Get all the cheque receipts for the previous month and year
-        cheque_receipts = OperationsChequeReceipt.objects.filter(date_received__year=previous_year, date_received__month=previous_month)
+    # Get all the cheque receipts for the previous month and year
+    cheque_receipts = OperationsChequeReceipt.objects.filter(date_received__year=previous_year, date_received__month=previous_month)
 
-        # Get the votehead budgets for the previous month and year
-        votehead_budgets = OperationsBudget.objects.filter(date_budgeted__year=previous_year, date_budgeted__month=previous_month)
+    # Get the votehead budgets for the previous month and year
+    votehead_budgets = OperationsBudget.objects.filter(date_budgeted__year=previous_year, date_budgeted__month=previous_month)
 
-        # Cache the values
-        cache.set(f'votehead_budgets_{previous_month}_{previous_year}', votehead_budgets)
-        cache.set(f'cheque_receipts_{previous_month}_{previous_year}', cheque_receipts)
-
-        # Pass the cached values of the cheque_receipts and votehead_budgets to the template
-        context = {
-            'cheque_receipts': cheque_receipts,
-            'votehead_budgets': votehead_budgets
-        }
-        return render(request, 'accounting/my_template.html', context)
-
-
-
-
-
-
-
+    # Pass the cheque_receipts and votehead_budgets to the template
+    context = {
+        'cheque_receipts': cheque_receipts,
+        'votehead_budgets': votehead_budgets
+    }
+    return render(request, 'accounting/my_template.html', context)
