@@ -5,7 +5,6 @@ from .models import *
 from .forms import *
 from .budget_utils import update_voteheadreceipts
 from datetime import datetime, timedelta
-from django.core.cache import cache
 
 
 
@@ -228,11 +227,12 @@ def my_view(request):
     previous_month = previous_date.month
     previous_year = previous_date.year
 
-    # Check if votehead budgets for the previous month and year already exist
+    # Check if the votehead budgets for the previous month and year exist and are not zero
     votehead_budgets_exist = OperationsBudget.objects.filter(date_budgeted__year=previous_year, date_budgeted__month=previous_month).exists()
+    votehead_budgets_not_zero = OperationsBudget.objects.filter(date_budgeted__year=previous_year, date_budgeted__month=previous_month, amount__gt=0).exists()
 
-    if not votehead_budgets_exist:
-        # Create new votehead budgets for the previous month and year
+    # Update the votehead budgets for the previous month and year if they don't exist or are zero
+    if not (votehead_budgets_exist and votehead_budgets_not_zero):
         update_voteheadreceipts(previous_month, previous_year)
 
     # Get all the cheque receipts for the previous month and year
