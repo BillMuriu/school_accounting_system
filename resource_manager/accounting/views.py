@@ -228,8 +228,12 @@ def my_view(request):
     previous_month = previous_date.month
     previous_year = previous_date.year
 
-    # Update the votehead budgets for the previous month and year
-    update_voteheadreceipts(previous_month, previous_year)
+    # Check if votehead budgets for the previous month and year already exist
+    votehead_budgets_exist = OperationsBudget.objects.filter(date_budgeted__year=previous_year, date_budgeted__month=previous_month).exists()
+
+    if not votehead_budgets_exist:
+        # Create new votehead budgets for the previous month and year
+        update_voteheadreceipts(previous_month, previous_year)
 
     # Get all the cheque receipts for the previous month and year
     cheque_receipts = OperationsChequeReceipt.objects.filter(date_received__year=previous_year, date_received__month=previous_month)
