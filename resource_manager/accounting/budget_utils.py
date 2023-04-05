@@ -29,12 +29,12 @@ def update_voteheadreceipts(month, year):
         if ch.votehead:
             voteheads.add(ch.votehead)
 
+    # Set the budget amount for each votehead to 0 initially
+    budget_amounts = {votehead: Decimal('0') for votehead in voteheads}
+
     # Calculate the total budget amount and the budget amounts for each votehead
     total_budget_amount = Decimal('0')
-    budget_amounts = {}
     for votehead in voteheads:
-        budget_amount = Decimal('0')
-
         # Check if there are payment vouchers or cheques attached to this votehead for the given month and year
         if payment_vouchers.filter(votehead=votehead).exists() or cheques.filter(votehead=votehead).exists():
             max_budget_amount = cheque_receipt.amount - total_budget_amount
@@ -43,15 +43,17 @@ def update_voteheadreceipts(month, year):
             budget_amount = Decimal(budget_amount).quantize(Decimal('0.01'))
             budget_amount = round(budget_amount, -3)
 
-        budget_amounts[votehead] = budget_amount
-        total_budget_amount += budget_amount
+            budget_amounts[votehead] = budget_amount
+            total_budget_amount += budget_amount
 
     # If the total budget amount is less than the cheque receipt amount, add the difference to one of the budget amounts
     difference = cheque_receipt.amount - total_budget_amount
     if difference > 0:
-        votehead = random.choice(list(budget_amounts.keys()))
-        budget_amounts[votehead] += difference
-        budget_amounts[votehead] = budget_amounts[votehead].quantize(Decimal('0.01'))
+        voteheads_with_budgets = [votehead for votehead, budget_amount in budget_amounts.items() if budget_amount > 0]
+        if len(voteheads_with_budgets) > 0:
+            votehead = random.choice(voteheads_with_budgets)
+            budget_amounts[votehead] += difference
+            budget_amounts[votehead] = budget_amounts[votehead].quantize(Decimal('0.01'))
 
     # Update the operations budgets and votehead receipts for each votehead
     my_account = OperationsBankAccount.objects.first()
