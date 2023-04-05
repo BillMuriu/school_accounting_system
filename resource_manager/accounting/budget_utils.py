@@ -36,7 +36,8 @@ def update_voteheadreceipts(month, year):
         max_budget_amount = cheque_receipt.amount - total_budget_amount
         budget_amount = Decimal(str(random.uniform(0, float(max_budget_amount))))
         budget_amount = budget_amount.quantize(Decimal('1.'), rounding='ROUND_DOWN')
-        budget_amount = Decimal(budget_amount)
+        budget_amount = Decimal(budget_amount).quantize(Decimal('0.01'))
+        budget_amount = round(budget_amount, -3)
         budget_amounts[votehead] = budget_amount
         total_budget_amount += budget_amount
 
@@ -45,6 +46,7 @@ def update_voteheadreceipts(month, year):
     if difference > 0:
         votehead = random.choice(list(budget_amounts.keys()))
         budget_amounts[votehead] += difference
+        budget_amounts[votehead] = budget_amounts[votehead].quantize(Decimal('0.01'))
 
     # Update the operations budgets and votehead receipts for each votehead
     my_account = OperationsBankAccount.objects.first()
@@ -69,4 +71,5 @@ def update_voteheadreceipts(month, year):
             defaults={'amount': Decimal('0')}
         )
         votehead_receipt.amount += budget_amount
+        votehead_receipt.amount = votehead_receipt.amount.quantize(Decimal('0.01'))
         votehead_receipt.save()
