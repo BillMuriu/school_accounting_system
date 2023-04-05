@@ -45,7 +45,12 @@ def update_voteheadreceipts(month, year):
         # If the budget was not created, update its amount
         if not created:
             max_budget_amount = cheque_receipt.amount - total_budget_amount
-            budget_amount = decimal.Decimal(str(random.uniform(0, float(max_budget_amount))))
+            if max_budget_amount == 0:
+                budget_amount = decimal.Decimal('0')
+            else:
+                max_budget_amount = decimal.Decimal(str(max_budget_amount))
+                budget_amount = decimal.Decimal(str(random.uniform(0, max_budget_amount)))
+                budget_amount = budget_amount.quantize(decimal.Decimal('1.'), rounding=decimal.ROUND_DOWN)
             budget.amount += budget_amount
             budget.save()
             total_budget_amount += budget_amount
