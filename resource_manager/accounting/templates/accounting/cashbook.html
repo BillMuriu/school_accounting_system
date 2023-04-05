@@ -21,70 +21,40 @@
         <th>Cash</th>
         <th>Bank</th>
         <th>Total</th>
-        <th>Budget</th>
         {% for votehead in voteheads %}
             <th>{{ votehead.name }}</th>
         {% endfor %}
-    </tr>
-    {% for receipt in checkreceipts %}
-        <tr>
-            <td>{{ receipt.date_received }}</td>
-            <td></td>
-            <td></td>
-            <td>{{ receipt.amount }}</td>
-            <td></td>
-            <td></td>
-            {% for votehead in voteheads %}
-                {% for budget in receipt.budgets.all %}
-                    {% if budget.votehead == votehead %}
-                        <td>{{ budget.amount }}</td>
-                    {% endif %}
-                {% endfor %}
-            {% empty %}
-                <td></td>
-            {% endfor %}
         </tr>
-        {% for budget in receipt.budgets.all %}
+    </tr>
+        {% for receipt in checkreceipts %}
             <tr>
+                <td>{{ receipt.date_received }}</td>
                 <td></td>
-                <td>{{ budget.votehead }}</td>
                 <td></td>
+                <td>{{ receipt.amount }}</td>
                 <td></td>
-                <td>{{ budget.amount }}</td>
-                <td></td>
-                {% for votehead in voteheads %}
-                    {% if budget.votehead == votehead %}
-                        <td>{{ budget.amount }}</td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
+                {% for budget in budgets %}
+                    <td>{{ budget.amount }}</td>
                 {% endfor %}
             </tr>
         {% endfor %}
-    {% empty %}
-        <tr>
-            <td colspan="7">No cheque receipts found for the selected month and year.</td>
-        </tr>
-    {% endfor %}
-    {% for receipt in cashreceipts %}
-        <tr>
-            <td>{{ receipt.date_received }}</td>
-            <td></td>
-            <td>{{ receipt.amount }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            {% for votehead in voteheads %}
+        {% for receipt in cashreceipts %}
+            <tr>
+                <td>{{ receipt.date_received }}</td>
                 <td></td>
-            {% endfor %}
-        </tr>
-    {% empty %}
-        <tr>
-            <td colspan="7">No cash receipts found for the selected month and year.</td>
-        </tr>
-    {% endfor %}
-</table>
+                <td>{{ receipt.amount }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="7">No cash receipts found.</td>
+            </tr>
+        {% endfor %}
 
+</table>
 
 
 <h3>Payments</h3>
