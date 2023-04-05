@@ -29,36 +29,27 @@ def update_voteheadreceipts(month, year):
         if ch.votehead:
             voteheads.add(ch.votehead)
 
-    # Compute the total amount available for budgeting
-    total_budget_amount = cheque_receipt.amount
-
-    # Distribute the total budget amount randomly among the voteheads
-    votehead_budget_amounts = {}
+    # Calculate the total budget amount and the budget amounts for each votehead
+    total_budget_amount = Decimal('0')
+    budget_amounts = {}
     for votehead in voteheads:
-        # Calculate the maximum budget amount for this votehead
-        votehead_max_budget_amount = Decimal('0')
-        for pv in payment_vouchers.filter(votehead=votehead):
-            votehead_max_budget_amount += pv.amount
-        for ch in cheques.filter(votehead=votehead):
-            votehead_max_budget_amount += ch.amount
+        max_budget_amount = cheque_receipt.amount - total_budget_amount
+        budget_amount = Decimal(str(random.uniform(0, float(max_budget_amount))))
+        budget_amount = budget_amount.quantize(Decimal('1.'), rounding='ROUND_DOWN')
+        budget_amount = Decimal(budget_amount)
+        budget_amounts[votehead] = budget_amount
+        total_budget_amount += budget_amount
 
-        # Calculate the budget amount for this votehead as a random amount up to the maximum budget amount
-        if total_budget_amount > 0:
-            votehead_budget_amount = Decimal(str(random.uniform(0, float(votehead_max_budget_amount))))
-            votehead_budget_amount = votehead_budget_amount.quantize(Decimal('1.'), rounding='ROUND_DOWN')
-            if votehead_budget_amount > total_budget_amount:
-                votehead_budget_amount = total_budget_amount
-            total_budget_amount -= votehead_budget_amount
-        else:
-            votehead_budget_amount = Decimal('0')
-
-        votehead_budget_amounts[votehead] = votehead_budget_amount
+    # If the total budget amount is less than the cheque receipt amount, add the difference to one of the budget amounts
+    difference = cheque_receipt.amount - total_budget_amount
+    if difference > 0:
+        votehead = random.choice(list(budget_amounts.keys()))
+        budget_amounts[votehead] += difference
 
     # Update the operations budgets and votehead receipts for each votehead
-    for votehead in voteheads:
+    my_account = OperationsBankAccount.objects.first()
+    for votehead, budget_amount in budget_amounts.items():
         # Get or create the operations budget for this votehead and month
-        my_account = OperationsBankAccount.objects.first()
-
         budget, created = OperationsBudget.objects.get_or_create(
             votehead=votehead,
             account=my_account,
@@ -68,7 +59,6 @@ def update_voteheadreceipts(month, year):
 
         # If the budget was not created, update its amount
         if not created:
-            budget_amount = votehead_budget_amounts[votehead]
             budget.amount = budget_amount
             budget.save()
 
@@ -78,6 +68,5 @@ def update_voteheadreceipts(month, year):
             date_received=datetime(year=year, month=month, day=1),
             defaults={'amount': Decimal('0')}
         )
-        votehead_receipt.amount += budget.amount
+        votehead_receipt.amount += budget_amount
         votehead_receipt.save()
-
