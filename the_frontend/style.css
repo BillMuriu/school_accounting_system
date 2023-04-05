@@ -95,7 +95,7 @@
     border-bottom: 1px solid #ccc;
   }
 
-  .top-section .material-icons-sharp:not(#menu) {
+  .top-section .material-icons-sharp:not(#menu-icon) {
     display: none;
 }
 
@@ -114,8 +114,9 @@
 	border-bottom: 0px solid #ccc;
 }
 
-.sidebar-menu {
-    display: none;
+
+.show .sidebar-menu {
+    display: block;
 }
 
 .sidebar-menu li span {
@@ -123,4 +124,5 @@
     position: absolute;
     left: 20px;
 }
+
 }
