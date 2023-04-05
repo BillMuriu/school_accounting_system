@@ -33,11 +33,16 @@ def update_voteheadreceipts(month, year):
     total_budget_amount = Decimal('0')
     budget_amounts = {}
     for votehead in voteheads:
-        max_budget_amount = cheque_receipt.amount - total_budget_amount
-        budget_amount = Decimal(str(random.uniform(0, float(max_budget_amount))))
-        budget_amount = budget_amount.quantize(Decimal('1.'), rounding='ROUND_DOWN')
-        budget_amount = Decimal(budget_amount).quantize(Decimal('0.01'))
-        budget_amount = round(budget_amount, -3)
+        budget_amount = Decimal('0')
+
+        # Check if there are payment vouchers or cheques attached to this votehead for the given month and year
+        if payment_vouchers.filter(votehead=votehead).exists() or cheques.filter(votehead=votehead).exists():
+            max_budget_amount = cheque_receipt.amount - total_budget_amount
+            budget_amount = Decimal(str(random.uniform(0, float(max_budget_amount))))
+            budget_amount = budget_amount.quantize(Decimal('1.'), rounding='ROUND_DOWN')
+            budget_amount = Decimal(budget_amount).quantize(Decimal('0.01'))
+            budget_amount = round(budget_amount, -3)
+
         budget_amounts[votehead] = budget_amount
         total_budget_amount += budget_amount
 
@@ -51,25 +56,27 @@ def update_voteheadreceipts(month, year):
     # Update the operations budgets and votehead receipts for each votehead
     my_account = OperationsBankAccount.objects.first()
     for votehead, budget_amount in budget_amounts.items():
-        # Get or create the operations budget for this votehead and month
-        budget, created = OperationsBudget.objects.get_or_create(
-            votehead=votehead,
-            account=my_account,
-            date_budgeted=datetime(year=year, month=month, day=1),
-            defaults={'amount': Decimal('0'), 'cheque_receipt': cheque_receipt}
-        )
+        if budget_amount > 0:
+            # Get or create the operations budget for this votehead and month
+            budget, created = OperationsBudget.objects.get_or_create(
+                votehead=votehead,
+                account=my_account,
+                date_budgeted=datetime(year=year, month=month, day=1),
+                defaults={'amount': Decimal('0'), 'cheque_receipt': cheque_receipt}
+            )
 
-        # If the budget was not created, update its amount
-        if not created:
-            budget.amount = budget_amount
-            budget.save()
+            # If the budget was not created, update its amount
+            if not created:
+                budget.amount = budget_amount
+                budget.save()
 
-        # Create or update the votehead receipt for this votehead and month
-        votehead_receipt, _ = VoteHeadReceipt.objects.get_or_create(
-            votehead=votehead,
-            date_received=datetime(year=year, month=month, day=1),
-            defaults={'amount': Decimal('0')}
-        )
-        votehead_receipt.amount += budget_amount
-        votehead_receipt.amount = votehead_receipt.amount.quantize(Decimal('0.01'))
-        votehead_receipt.save()
+            # Create or update the votehead receipt for this votehead and month
+            votehead_receipt, _ = VoteHeadReceipt.objects.get_or_create(
+                votehead=votehead,
+                date_received=datetime(year=year, month=month, day=1),
+                defaults={'amount': Decimal('0')}
+            )
+            votehead_receipt.amount += budget_amount
+            votehead_receipt.amount = votehead_receipt.amount.quantize(Decimal('0.01'))
+            votehead_receipt.save()
+
