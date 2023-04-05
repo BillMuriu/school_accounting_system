@@ -17,7 +17,13 @@
 	background-color: #000;
 	color: #fff;
 }
-
+.top-section {
+    display: flex;
+    flex-direction: column;
+}
+.menu-control {
+    display: none;
+  }
 .sidebar-header {
 	padding: 30px;
 	height: 150px;
@@ -81,4 +87,40 @@
   .main-content {
     flex: 2;
   }
+
+  .top-section {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .top-section .material-icons-sharp:not(#menu) {
+    display: none;
+}
+
+  .menu-control {
+    order: 2;
+    display: block;
+    margin-right: 10px;
+  }
+
+  .sidebar-header {
+	padding: 20px;
+    height: 50px;
+    margin-left: 0px;
+	display: flex;
+	align-items: center;
+	border-bottom: 0px solid #ccc;
+}
+
+.sidebar-menu {
+    display: none;
+}
+
+.sidebar-menu li span {
+    color: #fff;
+    position: absolute;
+    left: 20px;
+}
 }
