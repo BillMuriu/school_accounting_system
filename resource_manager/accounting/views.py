@@ -205,7 +205,7 @@ def cashbook(request):
     votehead_budgets = []
     if latest_receipt:
         # Get the votehead receipts for the latest cheque receipt
-        votehead_receipts = VoteHeadReceipt.objects.filter(cheque_receipt=latest_receipt)
+        votehead_receipts = VoteHeadReceipt.objects.filter(receipt=latest_receipt)
         # Get the total budgeted amount for each votehead
         for votehead in voteheads:
             budget_amount = votehead_receipts.filter(votehead=votehead).aggregate(Sum('amount'))['amount__sum'] or Decimal('0')
@@ -225,6 +225,7 @@ def cashbook(request):
     }
 
     return render(request, 'accounting/cashbook.html', context)
+
 
 
 

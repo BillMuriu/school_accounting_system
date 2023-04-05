@@ -24,37 +24,41 @@
         {% for votehead in voteheads %}
             <th>{{ votehead.name }}</th>
         {% endfor %}
-        </tr>
     </tr>
-        {% for receipt in checkreceipts %}
-            <tr>
-                <td>{{ receipt.date_received }}</td>
-                <td></td>
-                <td></td>
-                <td>{{ receipt.amount }}</td>
-                <td></td>
-                {% for votehead in voteheads %}
-                    <td>{{ votehead.amount_budgeted }}</td>
+    {% for receipt in checkreceipts %}
+        <tr>
+            <td>{{ receipt.receipt_number }}</td>
+            <td></td>
+            <td></td>
+            <td>{{ receipt.amount }}</td>
+            <td></td>
+            {% for votehead in voteheads %}
+                {% for budget in votehead_budgets %}
+                    {% if budget.votehead == votehead %}
+                        <td>{{ budget.amount }}</td>
+                    {% endif %}
                 {% endfor %}
-            </tr>
-        {% endfor %}
-        {% for receipt in cashreceipts %}
-            <tr>
-                <td>{{ receipt.date_received }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    {% for receipt in cashreceipts %}
+        <tr>
+            <td>{{ receipt.receipt_number }}</td>
+            <td></td>
+            <td>{{ receipt.amount }}</td>
+            <td></td>
+            <td></td>
+            {% for votehead in voteheads %}
                 <td></td>
-                <td>{{ receipt.amount }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="7">No cash receipts found.</td>
-            </tr>
-        {% endfor %}
-
+            {% endfor %}
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="7">No cash receipts found.</td>
+        </tr>
+    {% endfor %}
 </table>
+
 
 
 <h3>Payments</h3>
