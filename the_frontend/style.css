@@ -4,6 +4,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .container {
@@ -18,8 +19,13 @@
 }
 
 .sidebar-header {
-	padding: 20px;
+	padding: 30px;
+	height: 150px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #ccc;
 }
+
 
 .sidebar-header h3 {
 	margin-bottom: 10px;
@@ -38,6 +44,9 @@
 .sidebar-menu li a {
 	color: #fff;
 	text-decoration: none;
+}
+.sidebar-menu li span{
+	color: #ccc;
 }
 
 .main-content {
