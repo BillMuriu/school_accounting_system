@@ -3,7 +3,6 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from .forms import *
-from decimal import Decimal
 from .budget_utils import update_voteheadreceipts
 from datetime import datetime, timedelta
 
@@ -200,28 +199,22 @@ def cashbook(request):
     # Get all the cash receipts
     cash_receipts = OperationsCashReceipt.objects.all()
 
-    # Get all the voteheads and their budgets for the latest cheque receipt
+    # Get all the votehead objects
     voteheads = VoteHead.objects.all()
-    votehead_budgets = []
-    if latest_receipt:
-        # Get the votehead receipts for the latest cheque receipt
-        votehead_receipts = VoteHeadReceipt.objects.filter(receipt=latest_receipt)
-        # Get the total budgeted amount for each votehead
-        for votehead in voteheads:
-            budget_amount = votehead_receipts.filter(votehead=votehead).aggregate(Sum('amount'))['amount__sum'] or Decimal('0')
-            votehead_budgets.append({
-                'votehead': votehead,
-                'amount': budget_amount,
-            })
 
     # Get all the payment vouchers with cash as the payment type
-    payment_vouchers = PaymentVoucher.objects.filter(payment_type='C')
+    payment_vouchers = PaymentVoucher.objects.all()
+
+    # Get all the budget objects
+    budgets = OperationsBudget.objects.all()
 
     context = {
         'latest_receipt': latest_receipt,
-        'votehead_budgets': votehead_budgets,
+        'voteheads': voteheads,
+        'checkreceipts': OperationsChequeReceipt.objects.all(),
         'payment_vouchers': payment_vouchers,
-        'cash_receipts': cash_receipts,
+        'cashreceipts': cash_receipts,
+        'budgets': budgets
     }
 
     return render(request, 'accounting/cashbook.html', context)
