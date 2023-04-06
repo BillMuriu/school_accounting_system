@@ -1,12 +1,18 @@
-document.getElementById("menu-icon").addEventListener("click", function() {
-    document.querySelector(".sidebar .sidebar-menu").classList.toggle("show");
-    document.getElementById("menu-icon").textContent = document.querySelector(".sidebar .sidebar-menu").classList.contains("show") ? "close" : "menu";
-    
-    // Add the following code to hide the sidebar-menu when the menu-icon is clicked
-    if (document.querySelector(".sidebar .sidebar-menu").classList.contains("show")) {
-        document.querySelector(".sidebar .sidebar-menu").style.display = "block";
-    } else {
-        document.querySelector(".sidebar .sidebar-menu").style.display = "none";
-    }
+const menuIcon = document.querySelector("#menu-icon");
+const closeIcon = document.querySelector("#close-icon");
+const sidebarMenu = document.querySelector(".sidebar .sidebar-menu");
+
+// hide the sidebar menu by default when the page loads
+sidebarMenu.style.display = "none";
+
+menuIcon.addEventListener("click", function() {
+  sidebarMenu.style.display = "block"; // show the sidebar menu when the menu icon is clicked
+  menuIcon.style.display = "none"; // hide the menu icon
+  closeIcon.style.display = "block"; // show the close icon
 });
 
+closeIcon.addEventListener("click", function() {
+  sidebarMenu.style.display = "none"; // hide the sidebar menu when the close icon is clicked
+  menuIcon.style.display = "block"; // show the menu icon
+  closeIcon.style.display = "none"; // hide the close icon
+});
