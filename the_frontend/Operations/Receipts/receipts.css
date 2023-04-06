@@ -122,19 +122,42 @@
 /************** Unique receipts' css ***********/
 .main-content .main-bottom {
     padding: 46.5px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
   }
-
-  .main-content .main-bottom .receipt-list {
+  .receipt-list {
+    border-collapse: collapse;
     width: 100%;
+    max-width: 900px;
+    text-align: left;
   }
-
-.main-content .main-bottom .receipt-list tbody {
-    background-color: #fff;
-}
-
-.main-content .main-bottom .receipt-list tbody th {
-    display: none;
-}
+  
+  .receipt-list thead tr th {
+    background-color: #ECEFF1;
+    color: #37474F;
+    font-weight: 600;
+    padding: 16px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .receipt-list tbody tr td {
+    padding: 10px;
+    border-bottom: 1px solid #CFD8DC;
+    text-align: center;
+  }
+  
+  .receipt-list tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .receipt-list tbody th {
+    font-size: 0;
+    padding: 0;
+    visibility: hidden;
+  }
+  
 
 @media (max-width: 768px) {
     .container {
