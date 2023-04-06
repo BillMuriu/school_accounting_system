@@ -77,8 +77,9 @@
   background-color: #F4F4F0;
 }
 
+/****************** The Difference with From the main page *********************/
 .main-content .main-top {
-  padding: 53.3px;
+  padding: 46.5px;
   border-bottom: 1px solid #000;
   display: flex;
   flex-direction: column;
@@ -88,6 +89,38 @@
 .main-content h1 {
   font-weight: 500;
 }
+
+.main-content .main-top .operation-links {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-top: 36px;
+}
+
+.main-content .main-top .operation-links li {
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid black;
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.main-content .main-top .operation-links li a {
+    color: #000;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.main-content .main-top .operation-links li:hover {
+    background-color: black;
+  }
+  
+  .main-content .main-top .operation-links li:hover a {
+    color: white;
+  }
 
 
 @media (max-width: 768px) {
