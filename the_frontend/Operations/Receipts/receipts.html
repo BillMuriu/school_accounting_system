@@ -54,24 +54,28 @@
                 </ul>
             </div>
             <div class="main-bottom">
-                <h1>Receipts</h1>
-                <table>
-                    <thead>
+                <table class="receipt-list">
+                  <thead>
                     <tr>
-                        <th>Receipt Number</th>
-                        <th>Date Received</th>
-                        <th>Amount</th>
-                        <th>Received From</th>
+                      <th>Receipt No.</th>
+                      <th>Date Received</th>
+                      <th>Amount</th>
+                      <th>From</th>
+                      <th>Action</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                        <td>{{ receipt.id }}</td>
-                        <td>{{ receipt.date_received }}</td>
-                        <td>{{ receipt.amount }}</td>
-                        <td>{{ receipt.received_from }}</td>
-                    </tbody>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>3</td>
+                      <td>March</td>
+                      <td>50,000</td>
+                      <td>Government</td>
+                      <td>View</td>
+                    </tr>
+                  </tbody>
                 </table>
-            </div>
+              </div>
+              
         </div>
     </div>    
 </body>
