@@ -122,6 +122,32 @@
     color: white;
   }
 
+  .main-content .main-bottom {
+    padding: 46.5px;
+  }
+
+  /* .main-content .main-bottom .operation-cards {
+
+  } */
+
+  .main-content .main-bottom .operation-cards .the-operation-cards{
+    background-color: #fff;
+    width: 12rem;
+    height: 8rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+
+  .main-content .main-bottom .the-operation-cards .card-value{
+    font-size: 48px;
+    font-weight: 400;
+    margin-top: 5px;
+  }
+
 
 @media (max-width: 768px) {
   .container {
