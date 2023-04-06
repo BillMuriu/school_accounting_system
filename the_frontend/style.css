@@ -29,6 +29,7 @@
 	height: 150px;
 	display: flex;
 	align-items: center;
+  font-size: 24px;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -73,13 +74,17 @@
 
 .main-content {
 	flex: 1;
-	padding: 20px;
-  /* background-color: #F4F4F0; */
+	/* padding: 20px; */
+  background-color: #F4F4F0;
+}
 
+.main-content .main-top {
+  padding: 53.3px;
+  border-bottom: 1px solid #000;
 }
 
 .main-content h1 {
-	margin-bottom: 20px;
+  font-weight: 500;
 }
 
 
@@ -110,6 +115,14 @@
     order: 2;
     display: block;
     margin-right: 10px;
+  }
+
+  .main-content .main-top {
+    padding: 20px;
+    border-bottom: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .sidebar-header {
