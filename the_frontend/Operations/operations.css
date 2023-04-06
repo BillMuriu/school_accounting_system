@@ -92,7 +92,7 @@
 
 .main-content .main-top .operation-links {
     display: flex;
-    justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 30px;
     margin-top: 36px;
 }
@@ -126,13 +126,15 @@
     padding: 46.5px;
   }
 
-  /* .main-content .main-bottom .operation-cards {
-
-  } */
+  .main-content .main-bottom .operation-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 
   .main-content .main-bottom .operation-cards .the-operation-cards{
     background-color: #fff;
-    width: 12rem;
+    width: 13rem;
     height: 8rem;
     padding: 1.5rem;
     display: flex;
