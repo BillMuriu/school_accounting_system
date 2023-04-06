@@ -134,17 +134,23 @@
   }
   
   .receipt-list thead tr th {
-    background-color: #ECEFF1;
-    color: #37474F;
+    font-size: 14px;
     font-weight: 600;
     padding: 16px;
     text-align: center;
     text-transform: uppercase;
   }
+
+  .receipt-list .table-container {
+    background-color: #fff;
+    border-radius: 12px;
+    border: 1px solid #000;
+    overflow: hidden;
+  }
   
   .receipt-list tbody tr td {
     padding: 10px;
-    border-bottom: 1px solid #CFD8DC;
+    border-bottom: 1px solid #000;
     text-align: center;
   }
   
