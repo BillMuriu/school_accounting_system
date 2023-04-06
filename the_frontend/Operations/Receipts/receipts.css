@@ -151,6 +151,10 @@
   text-transform: uppercase;
 }
 
+.receipt-row {
+    border-bottom: 1px solid #000;
+}
+
 .receipt-col {
   flex: 1;
 }
@@ -165,7 +169,7 @@
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
-  transform: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .receipt-row button:hover {
@@ -266,3 +270,45 @@
           margin-top: 16px;
       }
     }
+
+
+
+
+    @media (max-width: 768px) {
+        .main-content .main-bottom {
+            padding: 20px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+          }
+        .receipt-row {
+          background-color: #fff;
+          flex-direction: column;
+          align-items: flex-end;
+          padding: 16px;
+          margin: 20px;
+          border: 1px solid #000;
+          border-radius: 5px;
+          position: relative;
+
+
+        }
+
+        .receipt-row .receipt-col {
+            margin: 10px;
+          }
+
+        .receipt-header {
+            display: none;
+        }
+
+        .receipt-list {
+            background-color: #F4F4F0;
+            width: 100%;
+            border: none;
+          }
+          
+      }
+      
+      
+      
