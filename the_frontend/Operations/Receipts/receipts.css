@@ -302,7 +302,7 @@
       .receipt-header {
         display: none;
       }
-
+    
       .receipt-list {
         background-color: #F4F4F0;
         width: 100%;
@@ -318,45 +318,53 @@
         border: 1px solid #000;
         border-radius: 5px;
         margin: 10px;
-
       }
-
+    
       .receipt-header-responsive {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
+        align-items: center;
         margin: 14px;
         font-size: 12px;
         font-weight: 600;
         text-transform: uppercase;
       }
-
+    
       .receipt-header-responsive .receipt-col {
         padding: 10px;
-      }
-
-      .receipt-row-col {
-        flex-direction: column;
+        flex: 1;
+        display: flex;
         justify-content: center;
+        align-items: center;
+      }
+    
+      .receipt-row-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         font-size: 12px;
         margin: 10px;
       }
-
+    
       .receipt-row-col .receipt-col {
         padding: 10px;
-      }
-      
-
-      .receipt-row:last-child {
-        border-bottom: 1px solid #000;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     
-      .receipt-header-responsive .receipt-col {
-        flex: 1;
+      .receipt-row:last-child {
+        border-bottom: 1px solid #000;
       }
     
       .receipt-header-responsive .receipt-col span {
         display: block;
       }
     }
+    
+
+    
+    
