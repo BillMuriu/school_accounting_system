@@ -135,6 +135,7 @@
   display: inline-block;
   background-color: #000;
   color: #fff;
+  border: 1px solid #000;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
@@ -233,17 +234,17 @@
 .update-button, .delete-button {
   margin-left: 10px;
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #78350F;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.1s ease;
 }
 
-.update-button:hover, .delete-button:hover {
-  background-color: #3e8e41;
+.delete-button:hover, .update-button:hover {
+  transform: translateX(-2px) translateY(-2px);
 }
-
 
 
 /***********************media queries below 768px**********************/
