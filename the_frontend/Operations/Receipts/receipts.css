@@ -160,17 +160,28 @@
   flex: 1;
 }
 
+.receipt-row {
+  border-bottom: 1px solid #000;
+}
+
+.receipt-row:last-child {
+  border-bottom: none;
+}
+
 .receipt-header .receipt-col span {
   display: block;
 }
 
 .receipt-row-col {
-  border-bottom: 1px solid #000;
   display: flex;
 }
 
 .receipt-row-col .receipt-col {
   flex: 1;
+}
+
+.receipt-row-col .receipt-col:last-child {
+  border-bottom: none;
 }
 
 .receipt-row-col .receipt-col span {
