@@ -150,11 +150,7 @@
 }
 
 .receipt-header {
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #000;
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
+  display: none;
 }
 
 .receipt-header .receipt-col {
