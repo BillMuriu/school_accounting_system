@@ -321,35 +321,34 @@
       }
     
       .receipt-header-responsive {
+        /* background-color: bisque; */
+        padding: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        align-items: center;
-        margin: 14px;
-        font-size: 12px;
+        align-items: flex-start;
         font-weight: 600;
-        text-transform: uppercase;
+        width: 100%;
       }
     
       .receipt-header-responsive .receipt-col {
-        padding: 10px;
         flex: 1;
+        padding: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
     
       .receipt-row-col {
+        /* background-color: aqua; */
+        padding: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        align-items: center;
-        font-size: 12px;
-        margin: 10px;
+        align-items: flex-start;
       }
     
       .receipt-row-col .receipt-col {
-        padding: 10px;
         flex: 1;
         display: flex;
         justify-content: center;
