@@ -31,7 +31,7 @@
 	height: 150px;
 	display: flex;
 	align-items: center;
-    font-size: 24px;
+  font-size: 24px;
 	border-bottom: 1px solid #ccc;
 }
 
@@ -85,23 +85,6 @@
 }
 
 
-.main-content .main-top .back-button {
-  display: inline-block;
-  background-color: #000;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-left: auto;
-}
-
-.main-content .main-top .back-button {
-  float: right;
-}
-
-
-
 .main-content .main-top .operation-links {
     display: flex;
     flex-wrap: wrap;
@@ -148,6 +131,17 @@
   justify-content: center;
 }
 
+.main-content .main-bottom .back-button {
+  display: inline-block;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: auto;
+}
+
 .receipt-list {
   background-color: #F4F4F0;
   width: 100%;
@@ -163,7 +157,7 @@
   justify-content: space-around;
   border: 1px solid #000;
   border-radius: 5px;
-  margin: 10px;
+  margin-top: 20px;
 }
 
 .receipt-detail-header {
@@ -269,6 +263,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .main-content .main-top .back-button {
+        float: none;
     }
   
     .sidebar-header {
