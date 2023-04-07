@@ -140,6 +140,12 @@
   text-decoration: none;
   font-weight: bold;
   margin-left: auto;
+  transition: all 0.3s ease;
+}
+
+.main-content .main-bottom .back-button:hover {
+  background-color: #fff;
+  color: #000;
 }
 
 .receipt-list {
@@ -174,6 +180,7 @@
   flex: 1;
   padding: 10px;
   display: flex;
+  margin-left: 30px;
   justify-content: center;
   align-items: center;
 }
@@ -195,6 +202,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 30px;
 }
 
 
@@ -216,6 +224,26 @@
   background-color: #000;
   color: #fff;
 }
+
+.action-button {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.update-button, .delete-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-button:hover, .delete-button:hover {
+  background-color: #3e8e41;
+}
+
 
 
 /***********************media queries below 768px**********************/
@@ -291,6 +319,14 @@
   
   .main-content .main-bottom .operation-cards .the-operation-cards{
       width: 100%;
+    }
+
+    .receipt-detail-header .receipt-col {
+      margin-left: 0px;
+    }
+
+    .receipt-row-col .receipt-col {
+      margin-right: 0px;
     }
   
   }
