@@ -195,28 +195,8 @@
   }
   
 
-/* .receipt-row button {
-  background-color: #fff;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  width: 80px;
-  transition: all 0.3s ease;
-}
-
-.receipt-row button:hover {
-  background-color: #000;
-  color: #fff;
-}
-
-.action-button {
-  text-align: right;
-  margin-top: 20px;
-}
-
 .update-button, .delete-button {
-  margin-left: 10px;
+  margin-top: 20px;
   padding: 10px 20px;
   background-color: #78350F;
   color: white;
@@ -228,11 +208,19 @@
   transition: all 0.1s ease;
 }
 
+.update-button, .delete-button {
+    float: right;
+  }
+
+.delete-button {
+    margin-right: 20px;
+  }
+
 .delete-button:hover, .update-button:hover {
   transform: translateX(-2px) translateY(-2px);
   background-color: #fff;
   color: #000;
-} */
+}
 
 
 /***********************media queries below 768px**********************/
