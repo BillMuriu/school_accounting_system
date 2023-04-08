@@ -129,6 +129,25 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  .main-content .main-bottom .back-button {
+    display: inline-block;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    width: 110px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .main-content .main-bottom .back-button:hover {
+    background-color: #fff;
+    color: #000;
+  }
   
   .main-content .main-bottom label {
     display: block;
@@ -155,6 +174,8 @@
     background-position: right 10px center;
     cursor: pointer;
   }
+
+  
 
   button[type="submit"] {
     padding: 10px 20px;
