@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>My Accounting Software Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="receipts.css">
+	<link rel="stylesheet" type="text/css" href="create_receipt.css">
 </head>
 <body>
     <div class="container">
@@ -37,7 +37,7 @@
         </div>        
         <div class="main-content">
             <div class="main-top">
-                <h1>Receipts</h1>
+                <h1>Create Receipts</h1>
                 <ul class="operation-links">
                     <li>
                         <a href="#">OtherDocs</a>
@@ -54,11 +54,33 @@
                 </ul>
             </div>
             <div class="main-bottom">
-                
+                <form>
+                    <div class="form-group">
+                        <label for="account">Account:</label>
+                        <select id="account" name="account">
+                            <option value="karinga">Karinga Account</option>
+                            <option value="bank">Bank Account</option>
+                            <option value="credit-card">Credit Card Account</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="received-from">Received from:</label>
+                        <input type="text" id="received-from" name="received-from">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="date-received">Date received:</label>
+                        <input type="date" id="date-received" name="date-received">
+                    </div>
+                    <button type="submit">Create Receipt</button>
+                </form>
             </div>
                  
         </div>
     </div>    
 </body>
 </html>
-<script src="receipts.js"></script>
+<script src="create_receipt.js"></script>
