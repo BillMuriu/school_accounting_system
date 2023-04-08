@@ -53,7 +53,6 @@
     border-bottom: 0.2px solid #F4F4F0;
     position: relative; /* add relative positioning to the li element */
     transition: all 0.5s ease;
-    margin: 10px;
 }
 
 .sidebar-menu li a {
@@ -72,17 +71,6 @@
     transition: all 0.3s ease;
 }
 
-/* .sidebar-menu li:hover {
-    background-color: #F4F4F0;
-}
-
-.sidebar-menu li:hover a {
-    color: #78350F;
-}
-
-.sidebar-menu li:hover span {
-    color: #78350F;
-} */
 
 .material-icons-sharp {
   font-size: 18px;

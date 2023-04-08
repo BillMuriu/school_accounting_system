@@ -261,6 +261,10 @@
       position: absolute;
       left: 20px;
   }
+
+  .main-content .main-bottom .back-button {
+    margin-bottom: 10px;
+  }
   
   
   }
@@ -286,75 +290,6 @@
 
       button[type="submit"] {
         width: 100%;
-      }
-    }
-
-
-    @media (max-width: 992px) {
-      .receipt-header {
-        display: none;
-      }
-    
-      .receipt-list {
-        background-color: #F4F4F0;
-        width: 100%;
-        border: none;
-        border-radius: 5px;
-        overflow: none;
-      }
-    
-      .receipt-row {
-        background-color: #fff;
-        display: flex;
-        justify-content: space-around;
-        border: 1px solid #000;
-        border-radius: 5px;
-        margin: 10px;
-      }
-    
-      .receipt-header-responsive {
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-start;
-        font-weight: 600;
-        width: 100%;
-      }
-    
-      .receipt-header-responsive .receipt-col {
-        flex: 1;
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    
-      .receipt-row-col {
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-start;
-      }
-    
-      .receipt-row-col .receipt-col {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .receipt-row button {
-        width: 80px;
-      }
-    
-      .receipt-row:last-child {
-        border-bottom: 1px solid #000;
-      }
-    
-      .receipt-header-responsive .receipt-col span {
-        display: block;
       }
     }
     
