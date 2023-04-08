@@ -143,6 +143,7 @@
   .main-content .main-bottom input[type="date"] {
     width: 100%;
     padding: 10px;
+    background-color: #fff;
     border: 1px solid #000;
     border-radius: 5px;
     box-sizing: border-box;
