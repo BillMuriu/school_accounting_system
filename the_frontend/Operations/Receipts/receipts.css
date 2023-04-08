@@ -126,7 +126,27 @@
   padding: 46.5px;
   margin-top: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+
+.main-content .main-bottom .create-receipt-button {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  width: 94px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+
+.main-content .main-bottom .create-receipt-button:hover {
+  background-color: #fff;
+  color: #000;
 }
 
 .receipt-list {
