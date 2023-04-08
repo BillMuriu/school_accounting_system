@@ -355,23 +355,25 @@
         flex: 1;
         padding: 10px;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
+        width: 100%;
       }
     
       .receipt-row-col {
-        padding: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: flex-start;
+        width: 100%;
       }
     
       .receipt-row-col .receipt-col {
         flex: 1;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
+        width: 100%;
       }
 
       .receipt-row button {
@@ -386,7 +388,6 @@
         display: block;
       }
     }
-    
 
     
     
