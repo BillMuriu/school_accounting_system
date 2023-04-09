@@ -159,7 +159,8 @@
   .main-content .main-bottom select,
   .main-content .main-bottom input[type="text"],
   .main-content .main-bottom input[type="number"],
-  .main-content .main-bottom input[type="date"] {
+  .main-content .main-bottom input[type="date"],
+  .main-content .main-bottom textarea {
     width: 100%;
     padding: 10px;
     background-color: #fff;
@@ -168,6 +169,7 @@
     box-sizing: border-box;
     margin-bottom: 20px;
   }
+  
   
   .main-content .main-bottom input[type="date"] {
     background-repeat: no-repeat;
