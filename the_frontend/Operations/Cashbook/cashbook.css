@@ -132,6 +132,7 @@
   }
   
   .receipt-list {
+    position: relative;
     background-color: #fff;
     width: 100%; /* Set the width to 100% to take up the full width of the container */
     max-width: 900px;
@@ -147,6 +148,11 @@
     align-items: center;
     min-width: 150px;
     padding: 16px;
+    width: auto;
+  }
+  
+  .receipt-header-container {
+    position: relative;
   }
   
   .receipt-header {
@@ -155,12 +161,16 @@
     font-size: 14px;
     font-weight: 600;
     display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   
   .receipt-header .receipt-col {
     flex: 1;
     min-width: 150px;
   }
+  
   
   .receipt-row {
     border-bottom: 1px solid #000;
