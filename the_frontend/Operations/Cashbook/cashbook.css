@@ -129,64 +129,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden; /* add overflow hidden */
 }
 
-.receipt-list {
-  display: flex;
-  flex-direction: column;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 10px;
-}
-
-.receipt-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.receipt-header {
-  display: flex;
-  background-color: #f1f1f1;
-  font-weight: bold;
-  padding: 10px 15px;
-}
-
-.receipt-header .receipt-col {
-  min-width: 150px;
-}
-
-.receipt-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 15px;
-  border-bottom: 1px solid #ccc;
-}
-
-.receipt-row .receipt-col {
-  flex: 1;
-  min-width: 150px;
-}
-
-.receipt-col:last-child {
-  flex: none;
-}
-
-.receipt-col button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.receipt-col button:hover {
-  background-color: #3e8e41;
-}
-
-.receipt-col span {
-  display: block;
-}
 
 /***********************media queries below 768px**********************/
 @media (max-width: 768px) {
