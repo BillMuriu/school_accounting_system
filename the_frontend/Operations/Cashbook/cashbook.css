@@ -131,10 +131,13 @@
   justify-content: center;
 }
 
+.receipt-list-wrapper {
+  overflow-x: auto;
+}
+
 .receipt-list {
   display: flex;
   flex-direction: column;
-  overflow-x: auto;
   white-space: nowrap;
   padding-bottom: 10px;
 }
@@ -182,8 +185,6 @@
 .receipt-col span {
   display: block;
 }
-
-
 
 /***********************media queries below 768px**********************/
 @media (max-width: 768px) {
