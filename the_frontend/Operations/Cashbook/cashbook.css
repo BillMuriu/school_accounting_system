@@ -136,13 +136,14 @@
     background-color: #fff;
     width: 100%; /* Set the width to 100% to take up the full width of the container */
     max-width: 900px;
+    min-height: 300px;
     border: 1px solid #000;
     border-radius: 5px;
     overflow-x: auto; /* Set overflow-x to auto to allow horizontal scrolling */
   }
   
   .receipt-header,
-  .receipt-row-col {
+  .receipt-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -151,19 +152,12 @@
     width: auto;
   }
   
-  .receipt-header-container {
-    position: relative;
-  }
-  
   .receipt-header {
     background-color: #f5f5f5;
     border-bottom: 1px solid #000;
     font-size: 14px;
     font-weight: 600;
     display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   
   .receipt-header .receipt-col {
@@ -174,6 +168,7 @@
   
   .receipt-row {
     border-bottom: 1px solid #000;
+    position: absolute;
   }
   
   .receipt-row:last-child {
@@ -188,16 +183,16 @@
     display: flex;
   }
   
-  .receipt-row-col .receipt-col {
+  .receipt-row .receipt-col {
     flex: 1;
     min-width: 150px;
   }
   
-  .receipt-row-col .receipt-col:last-child {
+  .receipt-row .receipt-col:last-child {
     border-bottom: none;
   }
   
-  .receipt-row-col .receipt-col span {
+  .receipt-row .receipt-col span {
     display: block;
   }
   
