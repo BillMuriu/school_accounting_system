@@ -131,15 +131,17 @@
   justify-content: center;
 }
 
-.receipt-list-wrapper {
-  overflow-x: auto;
-}
-
 .receipt-list {
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
   white-space: nowrap;
   padding-bottom: 10px;
+}
+
+.receipt-wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .receipt-header {
