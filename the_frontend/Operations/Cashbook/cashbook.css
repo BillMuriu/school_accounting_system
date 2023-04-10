@@ -123,93 +123,52 @@
 }
 
 /************** Unique receipts' css ***********/
-.main-content .main-bottom {
-    padding: 46.5px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.main-bottom {
+  overflow-x: auto;
   }
   
   .receipt-list {
-    position: relative;
-    background-color: #fff;
-    width: 100%; /* Set the width to 100% to take up the full width of the container */
-    max-width: 900px;
-    min-height: 300px;
-    border: 1px solid #000;
-    border-radius: 5px;
-    overflow-x: auto; /* Set overflow-x to auto to allow horizontal scrolling */
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
   }
   
   .receipt-header,
   .receipt-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 150px;
-    padding: 16px;
-    width: auto;
+  display: table-row;
+  background-color: #f2f2f2;
+  font-weight: bold;
   }
   
-  .receipt-header {
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #000;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
+  .receipt-header div,
+  .receipt-row div {
+  display: table-cell;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
   }
   
-  .receipt-header .receipt-col {
-    flex: 1;
-    min-width: 150px;
+  .receipt-header div:last-child,
+  .receipt-row div:last-child {
+  border-right: none;
   }
   
-  
-  .receipt-row {
-    border-bottom: 1px solid #000;
-    position: absolute;
+  .receipt-row div button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 3px;
   }
   
-  .receipt-row:last-child {
-    border-bottom: none;
+  .receipt-row div button:hover {
+  background-color: #3e8e41;
   }
-  
-  .receipt-header .receipt-col span {
-    display: block;
-  }
-  
-  .receipt-row-col {
-    display: flex;
-  }
-  
-  .receipt-row .receipt-col {
-    flex: 1;
-    min-width: 150px;
-  }
-  
-  .receipt-row .receipt-col:last-child {
-    border-bottom: none;
-  }
-  
-  .receipt-row .receipt-col span {
-    display: block;
-  }
-  
-  .receipt-row button {
-    background-color: #fff;
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .receipt-row button:hover {
-    background-color: #000;
-    color: #fff;
-  }
-  
 
 
 /***********************media queries below 768px**********************/
