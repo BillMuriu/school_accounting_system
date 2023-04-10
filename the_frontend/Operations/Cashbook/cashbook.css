@@ -123,52 +123,86 @@
 }
 
 /************** Unique receipts' css ***********/
-.main-bottom {
+.main-content .main-bottom {
+  padding: 46.5px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   overflow-x: auto;
-  }
-  
-  .receipt-list {
+}
+
+.receipt-list {
   display: table;
-  table-layout: fixed;
   width: 100%;
   border-collapse: collapse;
-  }
-  
-  .receipt-header,
-  .receipt-row {
+}
+
+.receipt-header, .receipt-row {
   display: table-row;
-  background-color: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+}
+
+.receipt-header {
   font-weight: bold;
-  }
-  
-  .receipt-header div,
-  .receipt-row div {
+  background-color: #f2f2f2;
+}
+
+.receipt-col {
   display: table-cell;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ddd;
-  }
-  
-  .receipt-header div:last-child,
-  .receipt-row div:last-child {
-  border-right: none;
-  }
-  
-  .receipt-row div button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  border-radius: 3px;
-  }
-  
-  .receipt-row div button:hover {
-  background-color: #3e8e41;
-  }
+  padding: 12px;
+  text-align: left;
+}
+
+.receipt-col button {
+  display: block;
+  margin: 0 auto;
+}
+
+.receipt-col span {
+  display: block;
+}
+
+.receipt-col:first-child {
+  width: 10%;
+}
+
+.receipt-col:nth-child(2) {
+  width: 10%;
+}
+
+.receipt-col:nth-child(3) {
+  width: 10%;
+}
+
+.receipt-col:nth-child(4) {
+  width: 15%;
+}
+
+.receipt-col:nth-child(5) {
+  width: 10%;
+}
+
+.receipt-col:nth-child(6) {
+  width: 7.5%;
+}
+
+.receipt-col:nth-child(7) {
+  width: 7.5%;
+}
+
+.receipt-col:nth-child(8) {
+  width: 7.5%;
+}
+
+.receipt-col:nth-child(9) {
+  width: 7.5%;
+}
+
+.receipt-col:nth-child(10) {
+  width: 7.5%;
+}
+
 
 
 /***********************media queries below 768px**********************/
