@@ -1,44 +1,4 @@
-<h1>Payment Vouchers</h1>
-<style>
-    th {
-    padding: 10px
-    }
-    td {
-        padding: 10px
-    }
-</style>
-<table>
-  <thead>
-    <tr>
-      <th>Voucher Number</th>
-      <th>Date</th>
-      <th>Payee Name</th>
-      <th>Description</th>
-      <th>Amount</th>
-      <th>Payment Type</th>
-      <th>Vote Head</th>
-      <th>Approved By</th>
-      <th>Cheque Number</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for voucher in vouchers %}
-      <tr>
-        <td><a href="{% url 'paymentvoucher_detail' voucher.id %}">{{ voucher.voucher_number }}</a></td>
-        <td>{{ voucher.date }}</td>
-        <td>{{ voucher.payee_name }}</td>
-        <td>{{ voucher.description }}</td>
-        <td>{{ voucher.amount }}</td>
-        <td>{{ voucher.get_payment_type_display }}</td>
-        <td>{{ voucher.votehead }}</td>
-        <td>{{ voucher.approved_by }}</td>
-        <td>{{ voucher.cheque_number }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>My Accounting Software Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="paymentvouchers.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/payment_voucher_list.css' %}">
 </head>
 <body>
     <div class="container">
@@ -105,6 +65,7 @@
                         <div class="receipt-col"><span>Type</span></div>
                         <div class="receipt-col"><span>Action</span></div>
                     </div>
+                    {% for voucher in vouchers %}
                     <div class="receipt-row">
                         <div class="receipt-header-responsive">
                             <div class="receipt-col"><span>Voucher Number</span></div>
@@ -115,14 +76,17 @@
                             <div class="receipt-col"><span>Action</span></div>
                         </div>
                         <div class="receipt-row-col">
-                            <div class="receipt-col"><span>322</span></div>
-                            <div class="receipt-col"><span>March 7</span></div>
-                            <div class="receipt-col"><span>Alice kamita</span></div>
-                            <div class="receipt-col"><span>500000</span></div>
-                            <div class="receipt-col"><span>Cash</span></div>
-                            <div class="receipt-col"><button>Details</button></div>
+                            <div class="receipt-col"><span>{{ voucher.voucher_number }}</span></div>
+                            <div class="receipt-col"><span>{{ voucher.date }}</span></div>
+                            <div class="receipt-col"><span>{{ voucher.payee_name }}</span></div>
+                            <div class="receipt-col"><span>{{ voucher.amount }}</span></div>
+                            <div class="receipt-col"><span>{{ voucher.get_payment_type_display }}</span></div>
+                            <div class="receipt-col"><button>
+                              <a href="{% url 'paymentvoucher_detail' voucher.id %}">Details</a>
+                            </button></div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
                  
@@ -130,4 +94,4 @@
     </div>    
 </body>
 </html>
-<script src="paymentvouchers.js"></script>
+<script src="{% static 'js/payment_voucher_list.js' %}"></script>
