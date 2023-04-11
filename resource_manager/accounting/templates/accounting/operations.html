@@ -1,8 +1,84 @@
-<h1>Operations</h1>
-<ul>
-  <li><a href="{% url 'receipts' %}">Receipts</a></li>
-  <li><a href="{% url 'vote_head_budget' %}">Budgeting</a></li>
-  <li><a href="{% url 'pettycash_list' %}">Petty Cash</a></li>
-  <li><a href="{% url 'payment_voucher_list' %}">Payment Vouchers</a></li>
-  <li><a href="{% url 'cheque_list' %}">Cheques</a></li>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <title>My Accounting Software Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="operations.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="top-section">
+                <div class="menu-control">
+                    <span class="material-icons-sharp" id="menu-icon">menu</span>
+                    <span class="material-icons-sharp" id="close-icon">close</span>
+                </div>
+                <div class="sidebar-header">
+                    <h3>Accounts</h3>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <span class="material-icons-sharp">space_dashboard</span>
+                    <a href="#">Operations</a>
+                </li>
+                <li>
+                    <span class="material-icons-sharp">space_dashboard</span>
+                    <a href="#">Tuition</a>
+                </li>
+                <li>
+                    <span class="material-icons-sharp">space_dashboard</span>
+                    <a href="#">School Fund</a>
+                </li>
+            </ul>
+        </div>        
+        <div class="main-content">
+            <div class="main-top">
+                <h1>Operations</h1>
+                <ul class="operation-links">
+                    <li>
+                        <a href="#">OtherDocs</a>
+                    </li>
+                    <li>
+                        <a href="#">Cashbooks</a>
+                    </li>
+                    <li>
+                        <a href="#">Ledgers</a>
+                    </li>
+                    <li>
+                        <a href="#">TrialBalances</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-bottom">
+                <div class="operation-cards">
+                    <div class="the-operation-cards">
+                        <div class="card-title">Receipts</div>
+                        <div class="card-value">0</div>
+                    </div>
+                    <div class="the-operation-cards">
+                        <div class="card-title">PettyCash</div>
+                        <div class="card-value">0</div>
+                    </div>
+                    <div class="the-operation-cards">
+                        <div class="card-title">PaymentVouchers</div>
+                        <div class="card-value">0</div>
+                    </div>
+                    <div class="the-operation-cards">
+                        <div class="card-title">Cheques</div>
+                        <div class="card-value">0</div>
+                    </div>
+                    <div class="the-operation-cards">
+                        <div class="card-title">Budgets</div>
+                        <div class="card-value">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
+<script src="operations.js"></script>
