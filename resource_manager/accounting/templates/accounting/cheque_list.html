@@ -1,45 +1,4 @@
-<h1>Cheques List</h1>
-<hr>
-<style>
-    th {
-        padding: 10px;
-    }
-    td {
-        padding: 10px;
-    }
-</style>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Cheque Number</th>
-      <th>Payee Name</th>
-      <th>Amount</th>
-      <th>Date Issued</th>
-      <th>Votehead</th>
-      <th>Remarks</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for cheque in cheques %}
-    <tr>
-      <td><a href="{% url 'cheque_detail' cheque.id %}">{{ cheque.cheque_number }}</a></td>
-      <td>{{ cheque.payee_name }}</td>
-      <td>{{ cheque.amount }}</td>
-      <td>{{ cheque.date_issued }}</td>
-      <td>{{ cheque.votehead }}</td>
-      <td>{{ cheque.remarks }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="6">No cheques found.</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>My Accounting Software Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="receipts.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/cheque_list.css' %}">
 </head>
 <body>
     <div class="container">
