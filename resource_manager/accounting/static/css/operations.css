@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+	display: flex;
+}
+
+.sidebar {
+	width: 200px;
+	height: 100vh;
+	background-color: #000;
+	color: #fff;
+}
+.top-section {
+    display: flex;
+    flex-direction: column;
+}
+.menu-control {
+    display: none;
+  }
+.sidebar-header {
+	padding: 30px;
+	height: 150px;
+	display: flex;
+	align-items: center;
+    font-size: 24px;
+	border-bottom: 1px solid #ccc;
+}
+
+
+.sidebar-header h3 {
+	margin-bottom: 10px;
+}
+
+.sidebar-menu {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s ease;
+}
+
+.sidebar-menu li {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: 0.2px solid #F4F4F0;
+    position: relative; /* add relative positioning to the li element */
+    transition: all 0.5s ease;
+}
+
+.sidebar-menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: normal;
+    margin-left: 40px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu li span {
+    color: #fff;
+    position: absolute;
+    left: 30px;
+    transition: all 0.3s ease;
+}
+
+
+.material-icons-sharp {
+  font-size: 18px;
+}
+
+
+.main-content {
+	flex: 1;
+  background-color: #F4F4F0;
+}
+
+/****************** The Difference with From the main page *********************/
+.main-content .main-top {
+  padding: 46.5px;
+  border-bottom: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main-content h1 {
+  font-weight: 500;
+}
+
+.main-content .main-top .operation-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 36px;
+}
+
+.main-content .main-top .operation-links li {
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid black;
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.main-content .main-top .operation-links li a {
+    color: #000;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.main-content .main-top .operation-links li:hover {
+    background-color: black;
+  }
+  
+  .main-content .main-top .operation-links li:hover a {
+    color: white;
+  }
+
+  .main-content .main-bottom {
+    padding: 46.5px;
+  }
+
+  .main-content .main-bottom .operation-cards a {
+    text-decoration: none;
+    color: #000;
+}
+
+  .main-content .main-bottom .operation-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .main-content .main-bottom .operation-cards .the-operation-cards {
+    background-color: #fff;
+    width: 13rem;
+    height: 8rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+    border: 1px solid black;
+    transition: all 0.5s ease;
+  }
+
+  .main-content .main-bottom .the-operation-cards .card-value{
+    font-size: 48px;
+    font-weight: 400;
+    margin-top: 5px;
+  }
+
+  .main-content .main-bottom .operation-cards .the-operation-cards:hover {
+    background-color: black;
+  }
+  
+  .main-content .main-bottom .operation-cards .the-operation-cards:hover .card-title {
+    color: white;
+  }
+
+  .main-content .main-bottom .operation-cards .the-operation-cards:hover .card-value {
+    color: white;
+  }
+
+
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidebar {
+    flex: 1;
+    width: 100vw;
+    position: sticky;
+    top: 0;
+  }
+  .main-content {
+    flex: 2;
+  }
+
+  .top-section {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #F4F4F0;
+  }
+
+  .top-section .material-icons-sharp:not(#menu-icon) {
+    display: none;
+}
+
+  .menu-control {
+    order: 2;
+    display: block;
+    margin-right: 10px;
+  }
+
+  .material-icons-sharp {
+    font-size: 22px;
+  }
+
+  .main-content .main-top {
+    padding: 20px;
+    border-bottom: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar-header {
+	padding: 20px;
+    height: 50px;
+    margin-left: 0px;
+	display: flex;
+	align-items: center;
+	border-bottom: 0px solid #ccc;
+}
+
+
+.show .sidebar-menu {
+    display: block;
+}
+
+.sidebar-menu li span {
+    color: #fff;
+    position: absolute;
+    left: 20px;
+}
+
+.main-content .main-bottom .operation-cards .the-operation-cards{
+    width: 100%;
+  }
+
+}
+
+@media (min-width: 768px) {
+  .sidebar-menu {
+    display: block !important;
+  }
+}
+
+@media (max-width: 576px) {
+    .main-content .main-bottom {
+        padding: 20px;
+      }
+    
+      .main-content .main-top .operation-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 16px;
+    }
+  }
