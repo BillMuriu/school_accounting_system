@@ -1,19 +1,93 @@
-<h2>Cash Receipt Detail</h2>
-    <table class="table table-bordered">
-        <tr>
-            <th>Account</th>
-            <td>{{ receipt.account }}</td>
-        </tr>
-        <tr>
-            <th>Received From</th>
-            <td>{{ receipt.received_from }}</td>
-        </tr>
-        <tr>
-            <th>Amount</th>
-            <td>{{ receipt.amount }}</td>
-        </tr>
-        <tr>
-            <th>Date Received</th>
-            <td>{{ receipt.date_received }}</td>
-        </tr>
-    </table>
+{% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <title>My Accounting Software Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/receipt_detail.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <div class="top-section">
+                    <div class="menu-control">
+                        <span class="material-icons-sharp" id="menu-icon">menu</span>
+                        <span class="material-icons-sharp" id="close-icon">close</span>
+                    </div>
+                    <div class="sidebar-header">
+                        <h3>Accounts</h3>
+                    </div>
+                </div>
+                <ul class="sidebar-menu">
+                    <li>
+                        <span class="material-icons-sharp">space_dashboard</span>
+                        <a href="Operations/operations.html">Operations</a>
+                    </li>
+                    <li>
+                        <span class="material-icons-sharp">space_dashboard</span>
+                        <a href="#">Tuition</a>
+                    </li>
+                    <li>
+                        <span class="material-icons-sharp">space_dashboard</span>
+                        <a href="#">School Fund</a>
+                    </li>
+                </ul>
+            </div>        
+            <div class="main-content">
+                <div class="main-top">
+                    <h1>Receipt Details</h1>
+                    <ul class="operation-links">
+                        <li>
+                            <a href="#">OtherDocs</a>
+                        </li>
+                        <li>
+                            <a href="#">Cashbooks</a>
+                        </li>
+                        <li>
+                            <a href="#">Ledgers</a>
+                        </li>
+                        <li>
+                            <a href="#">TrialBalances</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-bottom">
+                    <div class="receipt-list">
+                        <a href="#" class="back-button">&larr; Back</a>
+                        <div class="receipt-row">
+                            <div class="receipt-detail-header">
+                              <div class="receipt-col">
+                                <div class="label">Account:</div>
+                                <div class="value">{{ receipt.account }}</div>
+                              </div>
+                              <div class="receipt-col">
+                                <div class="label">Received From:</div>
+                                <div class="value">{{ receipt.received_from }}</div>
+                              </div>
+                              <div class="receipt-col">
+                                <div class="label">Amount:</div>
+                                <div class="value">{{ receipt.amount }}</div>
+                              </div>
+                              <div class="receipt-col">
+                                <div class="label">Date Received:</div>
+                                <div class="value">{{ receipt.date_received }}</div>
+                              </div>
+                            </div>
+                          </div> 
+                          
+                          <div class="action-button">
+                            <button class="update-button">Update</button>
+                            <button class="delete-button">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                     
+            </div>
+        </div>    
+    </body>
+    </html>
+    <script src="receipt_detail.js"></script>

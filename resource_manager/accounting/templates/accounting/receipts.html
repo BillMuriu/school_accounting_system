@@ -99,7 +99,7 @@
                             <div class="receipt-col"><span>{{ receipt.amount }}</span></div>
                             <div class="receipt-col"><span>{{ receipt.received_from }}</span></div>
                             <div class="receipt-col"><button>
-                              <a href="{% url 'receipt_detail' receipt_type='cheque' receipt_id=receipt.id %}">View</a>
+                              <a href="{% url 'receipt_detail' receipt_type='cash' receipt_id=receipt.id %}">View</a>
                             </button></div>
                         </div>
                     </div>
@@ -112,4 +112,4 @@
     </div>    
 </body>
 </html>
-<script src=""></script>
+<script src="{% static 'js/receipts.js' %}"></script>
