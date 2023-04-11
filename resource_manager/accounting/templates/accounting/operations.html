@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>My Accounting Software Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="operations.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/operations.css' %}">
 </head>
 <body>
     <div class="container">
@@ -55,26 +56,36 @@
             </div>
             <div class="main-bottom">
                 <div class="operation-cards">
-                    <div class="the-operation-cards">
+                    <a href="{% url 'receipts' %}">
+                      <div class="the-operation-cards">
                         <div class="card-title">Receipts</div>
                         <div class="card-value">0</div>
-                    </div>
-                    <div class="the-operation-cards">
+                      </div>
+                    </a>
+                    <a href="{% url 'pettycash_list' %}">
+                      <div class="the-operation-cards">
                         <div class="card-title">PettyCash</div>
                         <div class="card-value">0</div>
-                    </div>
-                    <div class="the-operation-cards">
+                      </div>
+                    </a>
+                    <a href="{% url 'payment_voucher_list' %}">
+                      <div class="the-operation-cards">
                         <div class="card-title">PaymentVouchers</div>
                         <div class="card-value">0</div>
-                    </div>
-                    <div class="the-operation-cards">
+                      </div>
+                    </a>
+                    <a href="{% url 'cheque_list' %}">
+                      <div class="the-operation-cards">
                         <div class="card-title">Cheques</div>
                         <div class="card-value">0</div>
-                    </div>
-                    <div class="the-operation-cards">
+                      </div>
+                    </a>
+                    <a href="{% url 'vote_head_budget' %}">
+                      <div class="the-operation-cards">
                         <div class="card-title">Budgets</div>
                         <div class="card-value">0</div>
-                    </div>
+                      </div>
+                    </a>
                 </div>
             </div>
         </div>
