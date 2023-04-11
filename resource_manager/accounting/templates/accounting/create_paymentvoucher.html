@@ -1,10 +1,3 @@
-<h1>Create Payment Voucher</h1>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Create</button>
-</form>
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <title>My Accounting Software Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="create_paymentvoucher.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/create_paymentvoucher.css' %}">
 </head>
 <body>
     <div class="container">
@@ -63,55 +56,51 @@
             </div>
             <div class="main-bottom">
                 <a href="#" class="back-button">&larr; Back</a>
-                <form>
-                    <div class="form-group">
-                        <label for="date-received">Date received:</label>
-                        <input type="date" id="date-received" name="date-received">
-                    </div>
-                    <div class="form-group">
-                        <label for="payee-name">Payee Name:</label>
-                        <input type="text" id="payee-name" name="payee-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" rows="4"></textarea>
-                    </div>                     
-                    <div class="form-group">
-                        <label for="amount">Amount:</label>
-                        <input type="number" id="amount" name="amount">
-                    </div>
-                    <div class="form-group">
-                        <label for="payment-type">Payment Type:</label>
-                        <select id="payment-type" name="payment-type">
-                            <option value="cash">Cash</option>
-                            <option value="cheque">Cheque</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="votehead">Votehead:</label>
-                        <select id="votehead" name="votehead">
-                            <option value="admin">Admin</option>
-                            <option value="p-emolument">P. Emolument</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="approved-by">Approved by:</label>
-                        <input type="text" id="approved-by" name="approved-by">
-                    </div>
-                    <div class="form-group">
-                        <label for="voucher-number">Voucher number:</label>
-                        <input type="number" id="voucher-number" name="voucher-number">
-                    </div>
-                    <div class="form-group">
-                        <label for="cheque-number">Cheque number:</label>
-                        <input type="number" id="cheque-number" name="cheque-number">
-                    </div>
-                    <button type="submit">Create Receipt</button>
-                </form>                
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <label for="{{ form.date.id_for_label }}">Date:</label>
+                      {{ form.date }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.payee_name.id_for_label }}">Payee Name:</label>
+                      {{ form.payee_name }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.description.id_for_label }}">Description:</label>
+                      {{ form.description }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.amount.id_for_label }}">Amount:</label>
+                      {{ form.amount }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.payment_type.id_for_label }}">Payment Type:</label>
+                      {{ form.payment_type }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.votehead.id_for_label }}">Votehead:</label>
+                      {{ form.votehead }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.approved_by.id_for_label }}">Approved by:</label>
+                      {{ form.approved_by }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.voucher_number.id_for_label }}">Voucher Number:</label>
+                      {{ form.voucher_number }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.cheque_number.id_for_label }}">Cheque Number:</label>
+                      {{ form.cheque_number }}
+                  </div>
+                  <button type="submit">Create Payment Voucher</button>
+              </form>
+                            
             </div>
                  
         </div>
     </div>    
 </body>
 </html>
-<script src="create_paymentvoucher.js"></script>
+<script src="{% static 'js/create_paymentvoucher.js' %}"></script>
