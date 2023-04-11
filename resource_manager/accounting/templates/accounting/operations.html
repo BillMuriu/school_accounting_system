@@ -44,7 +44,7 @@
                         <a href="#">OtherDocs</a>
                     </li>
                     <li>
-                        <a href="#">Cashbooks</a>
+                        <a href="{% url 'cashbook' %}">Cashbooks</a>
                     </li>
                     <li>
                         <a href="#">Ledgers</a>
@@ -92,4 +92,4 @@
     </div>    
 </body>
 </html>
-<script src="operations.js"></script>
+<script src="{% static 'css/operations.css' %}"></script>
