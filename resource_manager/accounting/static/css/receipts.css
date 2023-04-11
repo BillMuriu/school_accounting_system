@@ -218,10 +218,18 @@
   transition: all 0.3s ease;
 }
 
+.receipt-row button a{
+    color: #000;
+  }
+
 .receipt-row button:hover {
   background-color: #000;
   color: #fff;
 }
+
+.receipt-row button:hover a{
+    color: #fff;
+  }
 
 
 

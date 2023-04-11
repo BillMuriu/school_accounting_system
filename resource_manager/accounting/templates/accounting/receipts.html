@@ -1,42 +1,4 @@
-<h1>Receipts</h1>
-    <style>
-        th {
-        padding: 10px 20px;
-        }
-    </style>
-  <table>
-    <thead>
-      <tr>
-        <th>Receipt Number</th>
-        <th>Date Received</th>
-        <th>Amount</th>
-        <th>Received From</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for receipt in bank_receipts %}
-        <tr>
-            <td>{{ receipt.id }}</td>
-            <td>{{ receipt.date_received }}</td>
-            <td>{{ receipt.amount }}</td>
-            <td>{{ receipt.received_from }}</td>
-            <td><a href="{% url 'receipt_detail' receipt_type='cheque' receipt_id=receipt.id %}">View</a></td>
-        </tr>
-        {% endfor %}
-        {% for receipt in cash_receipts %}
-        <tr>
-          <td>{{ receipt.id }}</td>
-          <td>{{ receipt.date_received }}</td>
-          <td>{{ receipt.amount }}</td>
-          <td>{{ receipt.received_from }}</td>
-          <td><a href="{% url 'receipt_detail' receipt_type='cash' receipt_id=receipt.id %}">View</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-  </table>
-
-
-  {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,7 +78,20 @@
                             <div class="receipt-col"><span>{{ receipt.date_received }}</span></div>
                             <div class="receipt-col"><span>{{ receipt.amount }}</span></div>
                             <div class="receipt-col"><span>{{ receipt.received_from }}</span></div>
-                            <div class="receipt-col"><button><a href="{% url 'receipt_detail' receipt_type='cheque' receipt_id=receipt.id %}">View</a></button></div>
+                            <div class="receipt-col"><button>
+                              <a href="{% url 'receipt_detail' receipt_type='cheque' receipt_id=receipt.id %}">View</a>
+                            </button></div>
+                        </div>
+                        {% endfor %}
+                        {% for receipt in cash_receipts %}
+                        <div class="receipt-row-col">
+                            <div class="receipt-col"><span>{{ receipt.id }}</span></div>
+                            <div class="receipt-col"><span>{{ receipt.date_received }}</span></div>
+                            <div class="receipt-col"><span>{{ receipt.amount }}</span></div>
+                            <div class="receipt-col"><span>{{ receipt.received_from }}</span></div>
+                            <div class="receipt-col"><button>
+                              <a href="{% url 'receipt_detail' receipt_type='cash' receipt_id=receipt.id %}">View</a>
+                            </button></div>
                         </div>
                         {% endfor %}
                     </div>
