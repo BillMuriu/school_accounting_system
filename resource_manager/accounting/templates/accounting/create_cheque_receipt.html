@@ -5,7 +5,7 @@
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 
-
+    {% load static %}
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <title>My Accounting Software Dashboard</title>
-        <link rel="stylesheet" type="text/css" href="create_receipt.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/create_receipt.css' %}">
     </head>
     <body>
         <div class="container">
@@ -92,4 +92,4 @@
         </div>    
     </body>
     </html>
-    <script src="create_receipt.js"></script>
+    <script src="{% static 'js/create_receipt.js' %}"></script>
