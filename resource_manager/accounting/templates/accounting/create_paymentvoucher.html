@@ -55,7 +55,7 @@
                 </ul>
             </div>
             <div class="main-bottom">
-                <a href="#" class="back-button">&larr; Back</a>
+                <a href="{% url 'payment_voucher_list' %}" class="back-button">&larr; Back</a>
                 <form method="post">
                   {% csrf_token %}
                   <div class="form-group">
