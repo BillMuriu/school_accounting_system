@@ -167,6 +167,9 @@ class ChequeForm(forms.ModelForm):
     class Meta:
         model = Cheque
         fields = ['payee_name', 'cheque_number', 'amount', 'date_issued', 'votehead', 'remarks']
+        widgets = {
+            'date_issued': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     def save(self, commit=True):
         instance = super().save(commit=False)

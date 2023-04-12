@@ -1,11 +1,3 @@
-<h1>Create Cheque</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Create</button>
-</form>
-
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +38,7 @@
         </div>        
         <div class="main-content">
             <div class="main-top">
-                <h1>Create PaymentVoucher</h1>
+                <h1>Create Cheque</h1>
                 <ul class="operation-links">
                     <li>
                         <a href="#">OtherDocs</a>
@@ -63,48 +55,35 @@
                 </ul>
             </div>
             <div class="main-bottom">
-                <a href="{% url 'payment_voucher_list' %}" class="back-button">&larr; Back</a>
+                <a href="{% url 'cheque_list' %}" class="back-button">&larr; Back</a>
                 <form method="post">
                   {% csrf_token %}
-                  <div class="form-group">
-                      <label for="{{ form.date.id_for_label }}">Date:</label>
-                      {{ form.date }}
-                  </div>
                   <div class="form-group">
                       <label for="{{ form.payee_name.id_for_label }}">Payee Name:</label>
                       {{ form.payee_name }}
                   </div>
                   <div class="form-group">
-                      <label for="{{ form.description.id_for_label }}">Description:</label>
-                      {{ form.description }}
+                      <label for="{{ form.cheque_number.id_for_label }}">Cheque Number:</label>
+                      {{ form.cheque_number }}
                   </div>
                   <div class="form-group">
                       <label for="{{ form.amount.id_for_label }}">Amount:</label>
                       {{ form.amount }}
                   </div>
                   <div class="form-group">
-                      <label for="{{ form.payment_type.id_for_label }}">Payment Type:</label>
-                      {{ form.payment_type }}
+                      <label for="{{ form.date_issued.id_for_label }}">Date Issued:</label>
+                      {{ form.date_issued }}
                   </div>
                   <div class="form-group">
                       <label for="{{ form.votehead.id_for_label }}">Votehead:</label>
                       {{ form.votehead }}
                   </div>
                   <div class="form-group">
-                      <label for="{{ form.approved_by.id_for_label }}">Approved by:</label>
-                      {{ form.approved_by }}
+                      <label for="{{ form.remarks.id_for_label }}">Remarks:</label>
+                      {{ form.remarks }}
                   </div>
-                  <div class="form-group">
-                      <label for="{{ form.voucher_number.id_for_label }}">Voucher Number:</label>
-                      {{ form.voucher_number }}
-                  </div>
-                  <div class="form-group">
-                      <label for="{{ form.cheque_number.id_for_label }}">Cheque Number:</label>
-                      {{ form.cheque_number }}
-                  </div>
-                  <button type="submit">Create Payment Voucher</button>
-              </form>
-                            
+                  <button type="submit">Create Cheque</button>
+              </form>             
             </div>
                  
         </div>
