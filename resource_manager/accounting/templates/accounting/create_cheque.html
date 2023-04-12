@@ -4,3 +4,111 @@
   {{ form.as_p }}
   <button type="submit">Create</button>
 </form>
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <title>My Accounting Software Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/create_paymentvoucher.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="top-section">
+                <div class="menu-control">
+                    <span class="material-icons-sharp" id="menu-icon">menu</span>
+                    <span class="material-icons-sharp" id="close-icon">close</span>
+                </div>
+                <div class="sidebar-header">
+                    <h3>Accounts</h3>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <span class="material-icons-sharp">space_dashboard</span>
+                    <a href="Operations/operations.html">Operations</a>
+                </li>
+                <li>
+                    <span class="material-icons-sharp">space_dashboard</span>
+                    <a href="#">Tuition</a>
+                </li>
+                <li>
+                    <span class="material-icons-sharp">space_dashboard</span>
+                    <a href="#">School Fund</a>
+                </li>
+            </ul>
+        </div>        
+        <div class="main-content">
+            <div class="main-top">
+                <h1>Create PaymentVoucher</h1>
+                <ul class="operation-links">
+                    <li>
+                        <a href="#">OtherDocs</a>
+                    </li>
+                    <li>
+                        <a href="#">Cashbooks</a>
+                    </li>
+                    <li>
+                        <a href="#">Ledgers</a>
+                    </li>
+                    <li>
+                        <a href="#">TrialBalances</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main-bottom">
+                <a href="{% url 'payment_voucher_list' %}" class="back-button">&larr; Back</a>
+                <form method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <label for="{{ form.date.id_for_label }}">Date:</label>
+                      {{ form.date }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.payee_name.id_for_label }}">Payee Name:</label>
+                      {{ form.payee_name }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.description.id_for_label }}">Description:</label>
+                      {{ form.description }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.amount.id_for_label }}">Amount:</label>
+                      {{ form.amount }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.payment_type.id_for_label }}">Payment Type:</label>
+                      {{ form.payment_type }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.votehead.id_for_label }}">Votehead:</label>
+                      {{ form.votehead }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.approved_by.id_for_label }}">Approved by:</label>
+                      {{ form.approved_by }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.voucher_number.id_for_label }}">Voucher Number:</label>
+                      {{ form.voucher_number }}
+                  </div>
+                  <div class="form-group">
+                      <label for="{{ form.cheque_number.id_for_label }}">Cheque Number:</label>
+                      {{ form.cheque_number }}
+                  </div>
+                  <button type="submit">Create Payment Voucher</button>
+              </form>
+                            
+            </div>
+                 
+        </div>
+    </div>    
+</body>
+</html>
+<script src="{% static 'js/create_paymentvoucher.js' %}"></script>
