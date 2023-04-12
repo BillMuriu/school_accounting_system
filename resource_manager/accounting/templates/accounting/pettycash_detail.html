@@ -1,31 +1,96 @@
-<h1>Petty Cash Details</h1>
-<style>
-    td {
-        padding: 10px;
-    }
-</style>
-  <hr>
-  <table>
-    <tr>
-      <td><strong>Payee Name:</strong></td>
-      <td>{{ pettycash.payee_name }}</td>
-    </tr>
-    <tr>
-      <td><strong>Cheque Number:</strong></td>
-      <td>{{ pettycash.cheque_number }}</td>
-    </tr>
-    <tr>
-      <td><strong>Amount:</strong></td>
-      <td>{{ pettycash.amount }}</td>
-    </tr>
-    <tr>
-      <td><strong>Date Issued:</strong></td>
-      <td>{{ pettycash.date_issued }}</td>
-    </tr>
-    <tr>
-      <td><strong>Operations Account:</strong></td>
-      <td>{{ pettycash.operations_account }}</td>
-    </tr>
-  </table>
-  <br>
-  <a href="{% url 'pettycash_list' %}">Back to List</a>
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+      <title>My Accounting Software Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/paymentvoucher_detail.css' %}">
+  </head>
+  <body>
+      <div class="container">
+          <div class="sidebar">
+              <div class="top-section">
+                  <div class="menu-control">
+                      <span class="material-icons-sharp" id="menu-icon">menu</span>
+                      <span class="material-icons-sharp" id="close-icon">close</span>
+                  </div>
+                  <div class="sidebar-header">
+                      <h3>Accounts</h3>
+                  </div>
+              </div>
+              <ul class="sidebar-menu">
+                  <li>
+                      <span class="material-icons-sharp">space_dashboard</span>
+                      <a href="Operations/operations.html">Operations</a>
+                  </li>
+                  <li>
+                      <span class="material-icons-sharp">space_dashboard</span>
+                      <a href="#">Tuition</a>
+                  </li>
+                  <li>
+                      <span class="material-icons-sharp">space_dashboard</span>
+                      <a href="#">School Fund</a>
+                  </li>
+              </ul>
+          </div>        
+          <div class="main-content">
+              <div class="main-top">
+                  <h1>Receipt Details</h1>
+                  <ul class="operation-links">
+                      <li>
+                          <a href="#">OtherDocs</a>
+                      </li>
+                      <li>
+                          <a href="#">Cashbooks</a>
+                      </li>
+                      <li>
+                          <a href="#">Ledgers</a>
+                      </li>
+                      <li>
+                          <a href="#">TrialBalances</a>
+                      </li>
+                  </ul>
+              </div>
+              <div class="main-bottom">
+                  <div class="receipt-list">
+                      <a href="{% url 'pettycash_list' %}" class="back-button">&larr; Back</a>
+                      <div class="receipt-row">
+                          <div class="receipt-detail-header">
+                            <div class="receipt-col">
+                              <div class="label">Payee Name:</div>
+                              <div class="value">{{ pettycash.payee_name }}</div>
+                            </div>
+                            <div class="receipt-col">
+                              <div class="label">Cheque Number:</div>
+                              <div class="value">{{ pettycash.cheque_number }}</div>
+                            </div>
+                            <div class="receipt-col">
+                              <div class="label">Amount:</div>
+                              <div class="value">{{ pettycash.amount }}</div>
+                            </div>
+                            <div class="receipt-col">
+                              <div class="label">Date Issued:</div>
+                              <div class="value">{{ pettycash.date_issued }}</div>
+                            </div>
+                            <div class="receipt-col">
+                              <div class="label">Operations Account:</div>
+                              <div class="value">{{ pettycash.operations_account }}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="action-button">
+                          <button class="update-button">Update</button>
+                          <button class="delete-button">Delete</button>
+                      </div>
+                  </div>
+              </div>
+              </div>
+                   
+          </div>
+      </div>    
+  </body>
+  </html>
+  <script src="{% static 'js/paymentvoucher_detail.js' %}"></script>
